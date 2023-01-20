@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= name %> | API Hockeyreferre</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        .flex {
+            display: flex;
+        }
+        .item {
+            width: 20%;
+        }
+		a {
+			color: black;
+			text-decoration: none;
+		}
+    </style>
+</head>
+<body>
+    <header id="navbar">
+		<nav class="navbar-container container">
+		  <a href="/api" class="home-link">
+			<!-- <div class="navbar-logo"></div> -->
+			API Zentrum | Hockeyreferre
+		  </a>
+		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
+			<ul class="navbar-links">
+			  <li class="navbar-item"><a class="navbar-link" href="/api">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/api/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/api/editTable">Tabelle bearbeiten</a></li>
+			</ul>
+		  </div>
+		</nav>
+	</header>
+    <div style="display: flex; justify-content: space-evenly;">
+        <form action="/api/addTrainer/<%= name %>" method="post">
+            <h3>Trainer / Offiziellen erstellen</h3>
+            <label for="away" required="true">Name:</label><br>
+            <input type="text" id="fullname" name="fullname" required="true"><br>
+            <label for="logoHome" required="true">Foto-URL:</label><br>
+            <input type="text" id="image" name="image" required="true"><br>
+            <input type="submit" value="Submit"><br><br>
+        </form>
+        <form action="/api/addPlayer/<%= name %>" method="post">
+            <h3>Spieler erstellen</h3>
+            <label for="home" required="true">Nummer:</label><br>
+            <input type="text" id="jersey" name="jersey" required="true"><br>
+            <label for="away" required="true">Name:</label><br>
+            <input type="text" id="fullname" name="fullname" required="true"><br>
+            <label for="logoHome" required="true">Foto-URL:</label><br>
+            <input type="text" id="image" name="image" required="true"><br>
+            <input type="submit" value="Submit"><br><br>
+        </form>
+    </div>
+    <h2><%= name %> - Trainerliste</h2>
+    <table>
+		<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Image-URL</th>
+		</tr>
+		<% trainer.forEach(element => { %>
+			<tr>
+                <td><%= element.id %></td>
+                <td><%= element.fullname %></td>
+                <td><%= element.image %></td>
+			</tr>
+		<% }) %>
+</table>
+    <h2><%= name %> - Spielerliste</h2>
+    <table>
+		<tr>
+		<th>ID</th>
+		<th>Nummer</th>
+		<th>Name</th>
+		<th>Image-URL</th>
+		</tr>
+		<% data.forEach(element => { %>
+			<tr>
+                <form action="/api/updatePlayer/<%= element.id %>" method="post">
+                    <td><%= element.id %></td>
+                    <td><input type="number" name="jersey" id="jersey" value="<%= element.jersey %>"></td>
+                    <td><%= element.fullname %></td>
+                    <td><%= element.image %></td>
+                    <td><button type="submit">Update</button></td>
+                </form>
+			</tr>
+		<% }) %>
+</table>
+</body>
+</html>

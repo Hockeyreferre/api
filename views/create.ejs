@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Spiel erstellen | API-Hockeyreferre</title>
+   <style>
+      a {
+			color: black;
+			text-decoration: none;
+		}
+   </style>
+</head>
+
+<body>
+<div class="flex">
+	<div class="item">
+      <button><a href="/api">Startseite</a></button>
+	<h2>Add Game</h2>
+
+	<form action="/api/add" method="post">
+		<label for="home" required="true">Heim:</label><br>
+   <input type="text" id="home" name="home" required="true"><br>
+   <label for="away" required="true">Gast:</label><br>
+   <input type="text" id="away" name="away" required="true"><br>
+   <label for="logoHome" required="true">Logo Heim:</label><br>
+   <input type="text" id="logoHome" name="logoHome" required="true"><br>
+   <label for="logoAway" required="true">Logo Gast:</label><br>
+   <input type="text" id="logoAway" name="logoAway" required="true"><br>
+   <label for="date" required="true">Datum:</label><br>
+   <input type="text" id="date" name="date" required="true"><br>
+   <label for="time" required="true">Uhrzeit:</label><br>
+   <input type="text" id="time" name="time" required="true"><br>
+   <label for="stadion" required="true">Spielort:</label><br>
+   <input type="text" id="stadion" name="stadion" required="true"><br>
+   <label for="referre1" required="true">Schiedsrichter 1:</label><br>
+   <input type="text" id="referre1" name="referre1" required="true"><br>
+   <label for="referre2" required="true">Schiedsrichter 2:</label><br>
+   <input type="text" id="referre2" name="referre2" required="true"><br>
+   <label for="linesperson1" required="true">Linesperson 1:</label><br>
+   <input type="text" id="linesperson1" name="linesperson1" required="true"><br>
+   <label for="linesperson2" required="true">Linesperson 2:</label><br>
+   <input type="text" id="linesperson2" name="linesperson2" required="true"><br>
+   <label for="stream" required="true">Stream-URL:</label><br>
+   <input type="url" id="stream" name="stream"><br>
+   <label for="liga" required="true">Liga:</label><br>
+   <select id="liga" name="liga" required="true">
+      <option value="oberligaNord" name="oNord" required="true">Oberliga Nord</option>
+      <option value="oberligaSüd" name="oSüd" required="true">Oberliga SÜd</option>
+   </select> <br><br>
+   <input type="checkbox" id="live" name="live" value="true">
+   <label for="live"> Live</label><br>
+   <input type="checkbox" id="endet" name="endet" value="true">
+   <label for="endet"> Beendet</label><br>
+   <input type="checkbox" id="absage" name="absage" value="true">
+   <label for="absage"> Abgesagt</label><br>
+   <label for="scoreHome" required="true">Score Heim:</label><br>
+   <input type="number" id="scoreHome" name="scoreHome" required="true"><br>
+   <label for="scoreAway" required="true">Score Gast:</label><br>
+   <input type="number" id="scoreAway" name="scoreAway" required="true"><br>
+   <label for="scoreHome1" required="true">Score Heim 1:</label><br>
+   <input type="number" id="scoreHome1" name="scoreHome1" required="true"><br>
+   <label for="scoreAway1" required="true">Score Gast 1:</label><br>
+   <input type="number" id="scoreAway1" name="scoreAway1" required="true"><br>
+   <label for="scoreHome2" required="true">Score Heim 2:</label><br>
+   <input type="number" id="scoreHome2" name="scoreHome2" required="true"><br>
+   <label for="scoreAway2" required="true">Score Gast 2:</label><br>
+   <input type="number" id="scoreAway2" name="scoreAway2" required="true"><br>
+   <label for="scoreHome3" required="true">Score Heim 3:</label><br>
+   <input type="number" id="scoreHome3" name="scoreHome3" required="true"><br>
+   <label for="scoreAway3" required="true">Score Gast 3:</label><br>
+   <input type="number" id="scoreAway3" name="scoreAway3" required="true"><br>
+   <input type="checkbox" id="overtime" name="overtime" value="true">
+   <label for="overtime"> OT / Penalty</label><br>
+   <label for="scoreHomeOT">Score Heim OT:</label><br>
+   <input type="number" id="scoreHomeOT" name="scoreHomeOT"><br>
+   <label for="scoreAwayOT">Score Gast OT:</label><br>
+   <input type="number" id="scoreAwayOT" name="scoreAwayOT"><br>
+   <input type="submit" value="Submit"><br><br>
+	</form>
+	</div>
+</div>
+</body>
+
+</html>
