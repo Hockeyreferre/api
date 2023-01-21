@@ -28,6 +28,9 @@ const table = new mongoose.Schema({
     points: {
         required: false,
         type: Number
+    }, 
+    liga: {
+        type: String
     }
 })
 

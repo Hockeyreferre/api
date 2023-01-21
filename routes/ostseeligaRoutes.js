@@ -14,7 +14,7 @@ router.get('', async (req, res) => {
 })
 
 router.get('/create', async (req, res) => {
-    res.render('create', {  });
+    res.render('create', { data: await Tabelle.find()  });
 })
 
 router.get('/editTable', async (req, res) => {
@@ -35,7 +35,8 @@ router.get('/view/:id/:home/:away/:date', async (req, res) => {
         id: req.params.id, 
         date: req.params.date, 
         tableHome: await Tabelle.findOne({ name: req.params.home }), 
-        tableAway: await Tabelle.findOne({ name: req.params.away }) });
+        tableAway: await Tabelle.findOne({ name: req.params.away }) 
+    });
 })
 
 router.post('/add', async (req, res) => {
@@ -43,16 +44,11 @@ router.post('/add', async (req, res) => {
     const inputdate = req.body.date;
     const inputtime = req.body.time;
     const inputhome = req.body.home;
-    const inputlogohome = req.body.logoHome;
     const inputscorehome = req.body.scoreHome;
     const inputscoreaway = req.body.scoreAway;
-    const inputlogoaway = req.body.logoAway;
     const inputaway = req.body.away;
-    const inputstream = req.body.stream;
     const data = new Model({
         home: req.body.home,
-        logoHome: req.body.logoHome,
-        logoAway: req.body.logoAway,
         away: req.body.away,
         date: req.body.date,
         time: req.body.time,
@@ -65,7 +61,6 @@ router.post('/add', async (req, res) => {
         liga: req.body.liga,
         beendet: req.body.beendet,
         abgesagt: req.body.abgesagt,
-        stream: req.body.stream,
         scoreHome: req.body.scoreHome,
         scoreAway: req.body.scoreAway,
         scoreHome1: req.body.scoreHome1,
@@ -85,12 +80,9 @@ router.post('/add', async (req, res) => {
             date: inputdate,
             time: inputtime,
             home: inputhome,
-            logoHome: inputlogohome,
             scoreHome: inputscorehome,
             scoreAway: inputscoreaway,
-            logoAway: inputlogoaway,
             away: inputaway,
-            stream: inputstream
         });
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)

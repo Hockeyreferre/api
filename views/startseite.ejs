@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/navbar.css">
 	<!-- <link rel="stylesheet" href="/css/style.css"> -->
-    <title>Startseite | API U-15 LEV MV</title>
+    <title>Startseite | API LEV MV</title>
     <style>
         table {
             font-family: arial, sans-serif;
@@ -41,7 +41,7 @@
 		<nav class="navbar-container container">
 		  <a href="/api" class="home-link">
 			<!-- <div class="navbar-logo"></div> -->
-			API Zentrum | U-15 LEV MV
+			API Zentrum | LEV MV
 		  </a>
 		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
 			<span class="icon-bar"></span>
@@ -70,19 +70,19 @@
 		<th>Away</th>
 		<th>Stream</th>
 		</tr>
+		<% let liga = 'ostseeliga' %>
 		<% data.forEach(element => { %>
-			<tr href="/api/view/<%= element.id %>">
+			<tr>
 				<td><%= element.id %></td>
 				<td><%= element.date %></td>
 				<td><%= element.time %></td>
 				<td><%= element.home %></td>
-				<td><%= element.logoHome %></td>
+				<td><%= element.LogoHome %></td>
 				<td><%= element.scoreHome %></td>
 				<td><%= element.scoreAway %></td>
-				<td><%= element.logoAway %></td>
+				<td><%= element.LogoAway %></td>
 				<td><%= element.away %></td>
-				<td><%= element.stream %></td>
-				<td><button><a href="/api/view/<%= element.id %>/<%= element.home %>/<%= element.away %>/<%= element.date %>">zum Spiel</a></button></td>
+				<td><button><a href="/<%= liga %>/view/<%= element.id %>/<%= element.home %>/<%= element.away %>/<%= element.date %>">zum Spiel</a></button></td>
 				<td>
 						<form action="/api/delete/<%= element.id %>" method="POST" target="_blank">
 						<input type="text" style="display: none;"

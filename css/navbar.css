@@ -35,6 +35,19 @@ body {
   width: 100%;
 }
 
+.auswahl-links {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.auswahl-item {
+
+  width: 30%;margin: 20px;
+  text-align: center;
+  background-color: #0050c7;
+}
+
 .home-link,
 .navbar-link {
   color: var(--navbar-text-color);

@@ -2,7 +2,8 @@
 <html>
 
 <head>
-	<title>Spiel erstellen | API-U-15 LEV MV</title>
+	<title>Spiel erstellen | API-LEV MV</title>
+   <link rel="stylesheet" href="/css/navbar.css">
    <style>
       a {
 			color: black;
@@ -13,19 +14,41 @@
 
 <body>
 <div class="flex">
-	<div class="item">
-      <button><a href="/api">Startseite</a></button>
-	<h2>Add Game</h2>
+	<header id="navbar">
+		<nav class="navbar-container container">
+		  <a href="/api" class="home-link">
+			<!-- <div class="navbar-logo"></div> -->
+			API Zentrum | LEV MV
+		  </a>
+		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
+			<ul class="navbar-links">
+			  <li class="navbar-item"><a class="navbar-link" href="/api">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/api/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/api/editTable">Tabelle bearbeiten</a></li>
+			</ul>
+		  </div>
+		</nav>
+	</header>
+	<h2>Spiel erstellen</h2>
 
 	<form action="/api/add" method="post">
 		<label for="home" required="true">Heim:</label><br>
-   <input type="text" id="home" name="home" required="true"><br>
-   <label for="away" required="true">Gast:</label><br>
-   <input type="text" id="away" name="away" required="true"><br>
-   <label for="logoHome" required="true">Logo Heim:</label><br>
-   <input type="text" id="logoHome" name="logoHome" required="true"><br>
-   <label for="logoAway" required="true">Logo Gast:</label><br>
-   <input type="text" id="logoAway" name="logoAway" required="true"><br>
+      <select id="home" name="home" required="true">
+         <% data.forEach(element => { %>
+            <option value="<%= element.name %>" required="true"><%= element.name %></option>
+         <% }) %>
+      </select> <br><br>
+      <label for="away" required="true">Gast:</label><br>
+      <select id="away" name="away" required="true">
+         <% data.forEach(element => { %>
+            <option value="<%= element.name %>" required="true"><%= element.name %></option>
+         <% }) %>
+      </select> <br><br>
    <label for="date" required="true">Datum:</label><br>
    <input type="text" id="date" name="date" required="true"><br>
    <label for="time" required="true">Uhrzeit:</label><br>
@@ -40,12 +63,10 @@
    <input type="text" id="linesperson1" name="linesperson1" required="true"><br>
    <label for="linesperson2" required="true">Linesperson 2:</label><br>
    <input type="text" id="linesperson2" name="linesperson2" required="true"><br>
-   <label for="stream" required="true">Stream-URL:</label><br>
-   <input type="url" id="stream" name="stream"><br>
    <label for="liga" required="true">Liga:</label><br>
    <select id="liga" name="liga" required="true">
-      <option value="oberligaNord" name="oNord" required="true">Oberliga Nord</option>
-      <option value="oberligaSüd" name="oSüd" required="true">Oberliga SÜd</option>
+      <option value="ostseeliga" name="ostseeliga" required="true">Ostseeliga</option>
+      <option value="u15" name="u15" required="true">U-15</option>
    </select> <br><br>
    <input type="checkbox" id="live" name="live" value="true">
    <label for="live"> Live</label><br>

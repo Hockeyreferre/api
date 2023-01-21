@@ -7,10 +7,10 @@ const team = new mongoose.Schema({
     fullname: {
         type: String
     },
-    image: {
+    teamName: {
         type: String
     },
-    teamName: {
+    liga: {
         type: String
     }
 })

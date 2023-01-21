@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
           if (req.body.password !== password){
             res.send({"error":"Sorry your password is incorrect"});
           } else {
-            res.redirect('/api')
+            res.redirect('/ligaauswahl')
             await User.findOneAndUpdate({name: req.body.email}, {loggedIn: true}, {new : true})
           }
         }
