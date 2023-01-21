@@ -172,7 +172,7 @@ body {
   }
 }
 
-button {
+.btn {
   display: flex;
   align-items: center;
   font-family: inherit;
@@ -187,21 +187,21 @@ button {
   border-radius: 16px;
 }
 
-button svg {
+.btn svg {
   margin-right: 3px;
   transform: rotate(30deg);
   transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-button span {
+.btn span {
   transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-button:hover svg {
+.btn:hover svg {
   transform: translateX(5px) rotate(90deg);
 }
 
-button:hover span {
+.btn:hover span {
   transform: translateX(7px);
 }
 
