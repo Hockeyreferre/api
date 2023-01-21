@@ -10,7 +10,7 @@ const table = { place: 1 }
 const liga = 'u15'
 
 router.get('', async (req, res) => {
-    res.render('startseite', { data: await Model.find({ liga: 'u15' }).sort(sort), team: await Tabelle.find({ liga: 'u15' }), liga: liga,  one: await Model.findOne({ liga: 'u15' })});
+    res.render('startseite', { data: await Model.find({ liga: liga }).sort(sort), team: await Tabelle.find({ liga: liga }), liga: liga,  one: await Model.findOne({ liga: liga })});
 })
 
 router.get('/create', async (req, res) => {
@@ -18,17 +18,17 @@ router.get('/create', async (req, res) => {
 })
 
 router.get('/editTable', async (req, res) => {
-    res.render('table', { data: await Tabelle.find({ liga: 'u15' }).sort(table), liga: liga });
+    res.render('table', { data: await Tabelle.find({ liga: liga }).sort(table), liga: liga });
 })
 
 router.get('/mannschaft/:name', async (req, res) => {
-    res.render('mannschaft', { data: await Team.find({ teamName: req.params.name }, { liga: 'u15' }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name }, { liga: 'u15' }), liga: liga })
+    res.render('mannschaft', { data: await Team.find({ teamName: req.params.name, liga: liga }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name, liga: liga }), liga: liga })
 })
 
 router.get('/view/:id/:home/:away/:date', async (req, res) => {
     res.render('detail', { 
         data: await Model.findById(req.params.id), 
-        aufstellungHome: await Team.find({teamName: req.params.home}), 
+        aufstellungHome: await Team.find({teamName: req.params.home}),
         aufstellungAway: await Team.find({teamName: req.params.away}), 
         nameHome: req.params.home, 
         nameAway: req.params.away, 
@@ -54,18 +54,7 @@ router.post('/add', async (req, res) => {
         linesperson2: req.body.linesperson2,
         liga: req.body.liga,
         beendet: req.body.beendet,
-        abgesagt: req.body.abgesagt,
-        scoreHome: req.body.scoreHome,
-        scoreAway: req.body.scoreAway,
-        scoreHome1: req.body.scoreHome1,
-        scoreAway1: req.body.scoreAway1,
-        scoreHome2: req.body.scoreHome2,
-        scoreAway2: req.body.scoreAway2,
-        scoreHome3: req.body.scoreHome3,
-        scoreAway3: req.body.scoreAway3,
-        overtime: req.body.overtime,
-        scoreHomeOT: req.body.scoreHomeOT,
-        scoreAwayOT: req.body.scoreAwayOT
+        abgesagt: req.body.abgesagt
     })
 
     try {
@@ -133,15 +122,14 @@ router.post('/addPlayer/:name', async (req, res) => {
 
 router.post('/addTrainer/:name', async (req, res) => {
     const trainer = new Trainer({
-        jersey: req.body.jersey,
         fullname: req.body.fullname,
-        image: req.body.image,
+        liga: req.body.liga,
         teamName: req.params.name
     });
 
     try {
-        const dataToSave = await trainer.save();
-        res.status(200).json(dataToSave)
+        await trainer.save();
+        res.send('Trainer erfolgreich erstellt!   -->   Bitte gehe eine Seite zurück und lade diese neu :)')
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -217,14 +205,26 @@ router.post('/delete/:id', async (req, res) => {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)
         res.send(`Document with ${data.id} has been deleted..`)
-        var requestID = req.body.id;
-        var j = 0;
-        games.forEach((game) => {
-            j = j + 1;
-            if (game.id === requestID) {
-                games.splice(j - 1, 1);
-            }
-        });
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
+router.post('/deleteTrainer/:name', async (req, res) => {
+    try {
+        const data = await Trainer.findOneAndDelete({ fullname: req.params.name})
+        res.send('Trainer gelöscht. --> eine Seite zurückgehen und die Seite neu laden :)')
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
+router.post('/deletePlayer/:name', async (req, res) => {
+    try {
+        const data = await Team.findOneAndDelete({ fullname: req.params.name})
+        res.send('Spieler gelöscht. --> eine Seite zurückgehen und die Seite neu laden :)')
     }
     catch (error) {
         res.status(400).json({ message: error.message })

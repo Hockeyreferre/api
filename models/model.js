@@ -62,35 +62,35 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     scoreHome: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreAway: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreHome1: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreAway1: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreHome2: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreAway2: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreHome3: {
-        required: true,
+        required: false,
         type: Number
     },
     scoreAway3: {
-        required: true,
+        required: false,
         type: Number
     },
     overtime: {

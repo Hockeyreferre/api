@@ -2,107 +2,89 @@
 <html>
 
 <head>
-	<title>Spiel erstellen | API-LEV MV</title>
+   <title>Spiel erstellen | API-LEV MV</title>
    <link rel="stylesheet" href="/css/navbar.css">
+   <link rel="stylesheet" href="/css/input.scss">
    <style>
       a {
-			color: black;
-			text-decoration: none;
-		}
+         color: black;
+         text-decoration: none;
+      }
    </style>
 </head>
 
 <body>
-<div class="flex">
-	<header id="navbar">
-		<nav class="navbar-container container">
-		  <a href="/<%= liga %>" class="home-link">
-			<!-- <div class="navbar-logo"></div> -->
-			API Zentrum | LEV MV
-		  </a>
-		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		  </button>
-		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
-			<ul class="navbar-links">
-			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
-			</ul>
-		  </div>
-		</nav>
-	</header>
-	<h2>Spiel erstellen</h2>
+   <div class="flex">
+      <header id="navbar">
+         <nav class="navbar-container container">
+            <a href="/<%= liga %>" class="home-link">
+               <!-- <div class="navbar-logo"></div> -->
+               API Zentrum | LEV MV
+            </a>
+            <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu"
+               aria-expanded="false">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <div id="navbar-menu" aria-labelledby="navbar-toggle">
+               <ul class="navbar-links">
+                  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+                  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+                  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+                  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </header>
+      <h2>Spiel erstellen</h2>
 
-	<form action="/<%= liga %>/add" method="post">
-		<label for="home" required="true">Heim:</label><br>
-      <select id="home" name="home" required="true">
-         <% data.forEach(element => { %>
-            <option value="<%= element.name %>" required="true"><%= element.name %></option>
-         <% }) %>
-      </select> <br><br>
-      <label for="away" required="true">Gast:</label><br>
-      <select id="away" name="away" required="true">
-         <% data.forEach(element => { %>
-            <option value="<%= element.name %>" required="true"><%= element.name %></option>
-         <% }) %>
-      </select> <br><br>
-      <label for="date" required="true">Datum:</label><br>
-      <input type="text" id="date" name="date" required="true"><br>
-      <label for="time" required="true">Uhrzeit:</label><br>
-      <input type="text" id="time" name="time" required="true"><br>
-      <label for="stadion" required="true">Spielort:</label><br>
-      <input type="text" id="stadion" name="stadion" required="true"><br>
-      <label for="referre1" required="true">Schiedsrichter 1:</label><br>
-      <input type="text" id="referre1" name="referre1" required="true"><br>
-      <label for="referre2" required="true">Schiedsrichter 2:</label><br>
-      <input type="text" id="referre2" name="referre2" required="true"><br>
-      <label for="linesperson1" required="true">Linesperson 1:</label><br>
-      <input type="text" id="linesperson1" name="linesperson1"><br>
-      <label for="linesperson2" required="true">Linesperson 2:</label><br>
-      <input type="text" id="linesperson2" name="linesperson2"><br>
-      <label for="liga" required="true">Liga:</label><br>
-      <select id="liga" name="liga" required="true">
-         <option value="ostseeliga" name="ostseeliga" required="true">Ostseeliga</option>
-         <option value="u15" name="u15" required="true">U-15</option>
-      </select> <br><br>
-      <input type="checkbox" id="live" name="live" value="true">
-      <label for="live"> Live</label><br>
-      <input type="checkbox" id="endet" name="endet" value="true">
-      <label for="endet"> Beendet</label><br>
-      <input type="checkbox" id="absage" name="absage" value="true">
-      <label for="absage"> Abgesagt</label><br>
-      <label for="scoreHome" required="true">Score Heim:</label><br>
-      <input type="number" id="scoreHome" name="scoreHome" required="true"><br>
-      <label for="scoreAway" required="true">Score Gast:</label><br>
-      <input type="number" id="scoreAway" name="scoreAway" required="true"><br>
-      <label for="scoreHome1" required="true">Score Heim 1:</label><br>
-      <input type="number" id="scoreHome1" name="scoreHome1" required="true"><br>
-      <label for="scoreAway1" required="true">Score Gast 1:</label><br>
-      <input type="number" id="scoreAway1" name="scoreAway1" required="true"><br>
-      <label for="scoreHome2" required="true">Score Heim 2:</label><br>
-      <input type="number" id="scoreHome2" name="scoreHome2" required="true"><br>
-      <label for="scoreAway2" required="true">Score Gast 2:</label><br>
-      <input type="number" id="scoreAway2" name="scoreAway2" required="true"><br>
-      <label for="scoreHome3" required="true">Score Heim 3:</label><br>
-      <input type="number" id="scoreHome3" name="scoreHome3" required="true"><br>
-      <label for="scoreAway3" required="true">Score Gast 3:</label><br>
-      <input type="number" id="scoreAway3" name="scoreAway3" required="true"><br>
-      <input type="checkbox" id="overtime" name="overtime" value="true">
-      <label for="overtime"> OT / Penalty</label><br>
-      <label for="scoreHomeOT">Score Heim OT:</label><br>
-      <input type="number" id="scoreHomeOT" name="scoreHomeOT"><br>
-      <label for="scoreAwayOT">Score Gast OT:</label><br>
-      <input type="number" id="scoreAwayOT" name="scoreAwayOT"><br>
-      <input type="submit" value="Submit"><br><br>
-	</form>
-	</div>
-</div>
+      <form action="/<%= liga %>/add" method="post">
+         <div class="container">
+            <div>
+               <h4>Spielinformationen</h4>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required>
+                     <span class="omrs-input-label">Datum</span>
+                  </label>
+               </div>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required>
+                     <span class="omrs-input-label">Uhrzeit</span>
+                  </label>
+               </div>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required>
+                     <span class="omrs-input-label">Spielort</span>
+                  </label>
+               </div>
+            </div>
+            <input class="chosen-value" type="text" value="" placeholder="Zum Suchen Tippen">
+            <ul class="value-list">
+               <% data.forEach(element => { %>
+                  <li><%= element.name %></li>
+               <% }) %>
+            </ul>
+         </div>
+         <button type="submit">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+               <path d="M0 0h24v24H0z" fill="none"></path>
+               <path
+                  d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                  fill="currentColor"></path>
+            </svg>
+            <span>erstellen</span>
+         </button>
+      </form>
+   </div>
+   </div>
 
-<script src="/js/nav.js"></script>
+   <script src="/js/nav.js"></script>
+   <script src="/js/dropdown.js"></script>
 </body>
 
 </html>
