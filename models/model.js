@@ -2,20 +2,20 @@ const mongoose = require('mongoose');
 
 const dataSchema = new mongoose.Schema({
     home: {
-        required: true,
-        type: String
+        name: {
+            type: String
+        },
+        logo: {
+            type: String
+        }
     },
     away: {
-        required: true,
-        type: String
-    },
-    logoHome: {
-        required: true,
-        type: String
-    },
-    logoAway: {
-        required: true,
-        type: String
+        name: {
+            type: String
+        },
+        logo: {
+            type: String
+        }
     },
     date: {
         required: true,
@@ -38,11 +38,11 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     linesperson1: {
-        required: true,
+        required: false,
         type: String
     },
     linesperson2: {
-        required: true,
+        required: false,
         type: String
     },
     live: {

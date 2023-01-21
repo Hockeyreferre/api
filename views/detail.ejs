@@ -31,7 +31,7 @@
 <body>
 	<header id="navbar">
 		<nav class="navbar-container container">
-		  <a href="/api" class="home-link">
+		  <a href="/<%= liga %>" class="home-link">
 			<!-- <div class="navbar-logo"></div> -->
 			API Zentrum | LEV MV
 		  </a>
@@ -42,9 +42,10 @@
 		  </button>
 		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
 			<ul class="navbar-links">
-			  <li class="navbar-item"><a class="navbar-link" href="/api">Startseite</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/create">Spiel erstellen</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/editTable">Tabelle bearbeiten</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
 			</ul>
 		  </div>
 		</nav>
@@ -52,7 +53,7 @@
 	<div class="display">
 	<div style="margin-right: 40px;">
 		<h2>Ergebnisse</h2>
-		<form action="/api/update/<%= id %>/<%= nameHome %>/<%= nameAway %>" method="post">
+		<form action="/<%= liga %>/update/<%= id %>/<%= nameHome %>/<%= nameAway %>" method="post">
 			<div class="drittel" style="text-align: center;">
 				<span style="margin-right: 20px;"><%= nameHome %></span>
 				<span style="margin-left: 20px;"><%= nameAway %></span>
@@ -106,15 +107,11 @@
 	</div>
 	<div>
 		<h2>Sonstiges</h2>
-		<form action="/api/update/<%= id %>/<%= nameHome %>/<%= nameAway %>" method="post">
+		<form action="/<%= liga %>/update/<%= id %>/<%= nameHome %>/<%= nameAway %>" method="post">
 			<label for="home">Heim:</label> 
-			<input type="text" id="home" name="home" value="<%= data.home %>"> <br>
+			<input type="text" id="home" name="home" value="<%= data.home.name %>"> <br>
 			<label for="away">Gast:</label> 
-			<input type="text" id="away" name="away" value="<%= data.away %>"> <br>
-			<label for="logoHome">Logo Heim:</label> 
-			<input type="text" id="logoHome" name="logoHome" value="<%= data.logoHome %>"> <br>
-			<label for="logoAway">Logo Gast:</label> 
-			<input type="text" id="logoAway" name="logoAway" value="<%= data.logoAway %>"> <br>
+			<input type="text" id="away" name="away" value="<%= data.away.name %>"> <br>
 			<label for="referre1">Schiedsrichter 1:</label> 
 			<input type="text" id="referre1" name="referre1" value="<%= data.referre1 %>"> <br>
 			<label for="referre2">Schiedsrichter 2:</label> 
@@ -128,7 +125,7 @@
 	</div>
 	</div>
 <div class="display" style="margin-left: 150px;">
-	<form class="home" action="/api/aufstellung/<%= nameHome %>/<%= date %>" method="post">
+	<form class="home" action="/<%= liga %>/aufstellung/<%= nameHome %>/<%= date %>" method="post">
 		<h2><%= nameHome %></h2>
 		<div>
 			<h4>Reihe 1</h4>
@@ -297,7 +294,7 @@
 		</div>
 		<button type="submit">Bestätigen</button>
 	</form>
-	<form class="away" action="/api/aufstellung/<%= nameAway %>/<%= date %>" method="post">
+	<form class="away" action="/<%= liga %>/aufstellung/<%= nameAway %>/<%= date %>" method="post">
 		<h2><%= nameAway %></h2>
 		<div>
 			<h4>Reihe 1</h4>
@@ -468,6 +465,8 @@
 	</form>
 </div>
 	
+
+<script src="/js/nav.js"></script>
 </body>
 
 </html>

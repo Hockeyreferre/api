@@ -11,6 +11,7 @@ app.set("view engine", "ejs");
 app.use(helmet());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/css', express.static('css'))
+app.use('/js', express.static('js'))
 
 const mongoose = require('mongoose');
 const mongoString = process.env.DATABASE_URL;

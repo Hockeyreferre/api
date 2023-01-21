@@ -36,9 +36,9 @@
     </style>
 </head>
 <body>
-    <header id="navbar">
+  <header id="navbar">
 		<nav class="navbar-container container">
-		  <a href="/api" class="home-link">
+		  <a href="/<%= liga %>" class="home-link">
 			<!-- <div class="navbar-logo"></div> -->
 			API Zentrum | LEV MV
 		  </a>
@@ -49,39 +49,38 @@
 		  </button>
 		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
 			<ul class="navbar-links">
-			  <li class="navbar-item"><a class="navbar-link" href="/api">Startseite</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/create">Spiel erstellen</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/editTable">Tabelle bearbeiten</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
 			</ul>
 		  </div>
 		</nav>
 	</header>
     <div style="display: flex; justify-content: space-evenly;">
-        <form action="/api/addTrainer/<%= name %>" method="post">
+        <form action="/<%= liga %>/addTrainer/<%= name %>" method="post">
             <h3>Trainer / Offiziellen erstellen</h3>
             <label for="away" required="true">Name:</label><br>
             <input type="text" id="fullname" name="fullname" required="true"><br>
-            <label for="logoHome" required="true">Foto-URL:</label><br>
-            <input type="text" id="image" name="image" required="true"><br>
+            <label for="logoHome" required="true">Liga:</label><br>
+            <input type="text" value="<%= liga %>" id="liga" name="liga" required="true"><br>
             <input type="submit" value="Submit"><br><br>
         </form>
-        <form action="/api/addPlayer/<%= name %>" method="post">
+        <form action="/<%= liga %>/addPlayer/<%= name %>" method="post">
             <h3>Spieler erstellen</h3>
             <label for="home" required="true">Nummer:</label><br>
             <input type="text" id="jersey" name="jersey" required="true"><br>
             <label for="away" required="true">Name:</label><br>
             <input type="text" id="fullname" name="fullname" required="true"><br>
-            <label for="logoHome" required="true">Foto-URL:</label><br>
-            <input type="text" id="image" name="image" required="true"><br>
+            <label for="logoHome" required="true">Liga:</label><br>
+            <input type="text" value="<%= liga %>" id="liga" name="liga" required="true"><br>
             <input type="submit" value="Submit"><br><br>
         </form>
     </div>
-    <h2><%= name %> - Trainerliste</h2>
+    <h2><%= name %> | Trainer- / Offiziellenliste</h2>
     <table>
 		<tr>
-		<th>ID</th>
 		<th>Name</th>
-		<th>Image-URL</th>
 		</tr>
 		<% trainer.forEach(element => { %>
 			<tr>
@@ -91,25 +90,23 @@
 			</tr>
 		<% }) %>
 </table>
-    <h2><%= name %> - Spielerliste</h2>
+    <h2><%= name %> | Spielerliste</h2>
     <table>
 		<tr>
-		<th>ID</th>
 		<th>Nummer</th>
 		<th>Name</th>
-		<th>Image-URL</th>
 		</tr>
 		<% data.forEach(element => { %>
 			<tr>
-                <form action="/api/updatePlayer/<%= element.id %>" method="post">
-                    <td><%= element.id %></td>
+                <form action="/<%= liga %>/updatePlayer/<%= element.id %>" method="post">
                     <td><input type="number" name="jersey" id="jersey" value="<%= element.jersey %>"></td>
                     <td><%= element.fullname %></td>
-                    <td><%= element.image %></td>
                     <td><button type="submit">Update</button></td>
                 </form>
 			</tr>
 		<% }) %>
 </table>
+
+<script src="/js/nav.js"></script>
 </body>
 </html>

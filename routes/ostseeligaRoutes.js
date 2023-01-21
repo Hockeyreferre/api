@@ -5,24 +5,24 @@ const Team = require('../models/team');
 const Tabelle = require('../models/tabelle');
 const Trainer = require('../models/trainer');
 const router = express.Router();
-let games = []
 const sort = { date: -1, time: 1 }
 const table = { place: 1 }
+const liga = 'ostseeliga'
 
 router.get('', async (req, res) => {
-    res.render('startseite', { data: await Model.find().sort(sort), team: await Tabelle.find() });
+    res.render('startseite', { data: await Model.find({ liga: 'ostseeliga' }).sort(sort), team: await Tabelle.find({ liga: 'ostseeliga' }), liga: liga });
 })
 
 router.get('/create', async (req, res) => {
-    res.render('create', { data: await Tabelle.find()  });
+    res.render('create', { data: await Tabelle.find(), liga: liga  });
 })
 
 router.get('/editTable', async (req, res) => {
-    res.render('table', { data: await Tabelle.find().sort(table) });
+    res.render('table', { data: await Tabelle.find({ liga: 'ostseeliga' }).sort(table), liga: liga });
 })
 
 router.get('/mannschaft/:name', async (req, res) => {
-    res.render('mannschaft', { data: await Team.find({ teamName: req.params.name }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name }) })
+    res.render('mannschaft', { data: await Team.find({ teamName: req.params.name }, { liga: 'ostseeliga' }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name }, { liga: 'ostseeliga' }), liga: liga })
 })
 
 router.get('/view/:id/:home/:away/:date', async (req, res) => {
@@ -40,13 +40,6 @@ router.get('/view/:id/:home/:away/:date', async (req, res) => {
 })
 
 router.post('/add', async (req, res) => {
-    const inputId = games.length + 1;
-    const inputdate = req.body.date;
-    const inputtime = req.body.time;
-    const inputhome = req.body.home;
-    const inputscorehome = req.body.scoreHome;
-    const inputscoreaway = req.body.scoreAway;
-    const inputaway = req.body.away;
     const data = new Model({
         home: req.body.home,
         away: req.body.away,
@@ -75,15 +68,6 @@ router.post('/add', async (req, res) => {
     })
 
     try {
-        games.push({
-            id: inputId,
-            date: inputdate,
-            time: inputtime,
-            home: inputhome,
-            scoreHome: inputscorehome,
-            scoreAway: inputscoreaway,
-            away: inputaway,
-        });
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
     }
@@ -128,17 +112,6 @@ router.post('/aufstellung/:name/:date', async (req, res) => {
     }
 })
 
-//Get all Method
-router.get('/getAll', async (req, res) => {
-    try {
-        const data = await Model.find();
-        res.json(data)
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
-
 router.post('/addPlayer/:name', async (req, res) => {
     const player = new Team({
         jersey: req.body.jersey,
@@ -167,17 +140,6 @@ router.post('/addTrainer/:name', async (req, res) => {
     try {
         const dataToSave = await trainer.save();
         res.status(200).json(dataToSave)
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
-
-//Get by ID Method
-router.get('/getOne', async (req, res) => {
-    try {
-        const data = await Model.findById(req.body.id);
-        res.json(data)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -238,7 +200,7 @@ router.post('/updateTeam/:name', async (req, res) => {
         const updatedData = req.body;
         const options = { new: true };
 
-        const result = await Tabelle.findOneAndUpdate({name: req.params.name}, updatedData, options)
+        const result = await Tabelle.findOneAndUpdate({name: req.params.name, liga: 'ostseeliga'}, updatedData, options)
 
         res.send(result)
     }

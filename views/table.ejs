@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/navbar.css">
     <title>Tabelle | API-LEV MV</title>
     <style>
         .display {
@@ -18,12 +19,32 @@
 		}
     </style>
 </head>
-<body >
-    <button><a href="/api">Startseite</a></button>
+<body>
+  <header id="navbar">
+		<nav class="navbar-container container">
+		  <a href="/<%= liga %>" class="home-link">
+			<!-- <div class="navbar-logo"></div> -->
+			API Zentrum | LEV MV
+		  </a>
+		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
+			<ul class="navbar-links">
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
+			</ul>
+		  </div>
+		</nav>
+	</header>
     <h2>Tabelle</h2>
     <div class="display">
         <% data.forEach(element => { %>
-            <form action="/api/updateTeam/<%= element.name %>" method="post">
+            <form action="/<%= liga %>/updateTeam/<%= element.name %>" method="post">
                 <h4><%= element.name %></h4>
                 <label for="place">Platz:</label>
                 <input type="number" name="place" id="place" value="<%= element.place %>"><br>
@@ -39,5 +60,7 @@
             </form>
         <% }) %>
     </div>
+
+    <script src="/js/nav.js"></script>
 </body>
 </html>

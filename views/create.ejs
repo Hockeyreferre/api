@@ -16,7 +16,7 @@
 <div class="flex">
 	<header id="navbar">
 		<nav class="navbar-container container">
-		  <a href="/api" class="home-link">
+		  <a href="/<%= liga %>" class="home-link">
 			<!-- <div class="navbar-logo"></div> -->
 			API Zentrum | LEV MV
 		  </a>
@@ -27,16 +27,17 @@
 		  </button>
 		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
 			<ul class="navbar-links">
-			  <li class="navbar-item"><a class="navbar-link" href="/api">Startseite</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/create">Spiel erstellen</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/editTable">Tabelle bearbeiten</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
 			</ul>
 		  </div>
 		</nav>
 	</header>
 	<h2>Spiel erstellen</h2>
 
-	<form action="/api/add" method="post">
+	<form action="/<%= liga %>/add" method="post">
 		<label for="home" required="true">Heim:</label><br>
       <select id="home" name="home" required="true">
          <% data.forEach(element => { %>
@@ -49,57 +50,59 @@
             <option value="<%= element.name %>" required="true"><%= element.name %></option>
          <% }) %>
       </select> <br><br>
-   <label for="date" required="true">Datum:</label><br>
-   <input type="text" id="date" name="date" required="true"><br>
-   <label for="time" required="true">Uhrzeit:</label><br>
-   <input type="text" id="time" name="time" required="true"><br>
-   <label for="stadion" required="true">Spielort:</label><br>
-   <input type="text" id="stadion" name="stadion" required="true"><br>
-   <label for="referre1" required="true">Schiedsrichter 1:</label><br>
-   <input type="text" id="referre1" name="referre1" required="true"><br>
-   <label for="referre2" required="true">Schiedsrichter 2:</label><br>
-   <input type="text" id="referre2" name="referre2" required="true"><br>
-   <label for="linesperson1" required="true">Linesperson 1:</label><br>
-   <input type="text" id="linesperson1" name="linesperson1" required="true"><br>
-   <label for="linesperson2" required="true">Linesperson 2:</label><br>
-   <input type="text" id="linesperson2" name="linesperson2" required="true"><br>
-   <label for="liga" required="true">Liga:</label><br>
-   <select id="liga" name="liga" required="true">
-      <option value="ostseeliga" name="ostseeliga" required="true">Ostseeliga</option>
-      <option value="u15" name="u15" required="true">U-15</option>
-   </select> <br><br>
-   <input type="checkbox" id="live" name="live" value="true">
-   <label for="live"> Live</label><br>
-   <input type="checkbox" id="endet" name="endet" value="true">
-   <label for="endet"> Beendet</label><br>
-   <input type="checkbox" id="absage" name="absage" value="true">
-   <label for="absage"> Abgesagt</label><br>
-   <label for="scoreHome" required="true">Score Heim:</label><br>
-   <input type="number" id="scoreHome" name="scoreHome" required="true"><br>
-   <label for="scoreAway" required="true">Score Gast:</label><br>
-   <input type="number" id="scoreAway" name="scoreAway" required="true"><br>
-   <label for="scoreHome1" required="true">Score Heim 1:</label><br>
-   <input type="number" id="scoreHome1" name="scoreHome1" required="true"><br>
-   <label for="scoreAway1" required="true">Score Gast 1:</label><br>
-   <input type="number" id="scoreAway1" name="scoreAway1" required="true"><br>
-   <label for="scoreHome2" required="true">Score Heim 2:</label><br>
-   <input type="number" id="scoreHome2" name="scoreHome2" required="true"><br>
-   <label for="scoreAway2" required="true">Score Gast 2:</label><br>
-   <input type="number" id="scoreAway2" name="scoreAway2" required="true"><br>
-   <label for="scoreHome3" required="true">Score Heim 3:</label><br>
-   <input type="number" id="scoreHome3" name="scoreHome3" required="true"><br>
-   <label for="scoreAway3" required="true">Score Gast 3:</label><br>
-   <input type="number" id="scoreAway3" name="scoreAway3" required="true"><br>
-   <input type="checkbox" id="overtime" name="overtime" value="true">
-   <label for="overtime"> OT / Penalty</label><br>
-   <label for="scoreHomeOT">Score Heim OT:</label><br>
-   <input type="number" id="scoreHomeOT" name="scoreHomeOT"><br>
-   <label for="scoreAwayOT">Score Gast OT:</label><br>
-   <input type="number" id="scoreAwayOT" name="scoreAwayOT"><br>
-   <input type="submit" value="Submit"><br><br>
+      <label for="date" required="true">Datum:</label><br>
+      <input type="text" id="date" name="date" required="true"><br>
+      <label for="time" required="true">Uhrzeit:</label><br>
+      <input type="text" id="time" name="time" required="true"><br>
+      <label for="stadion" required="true">Spielort:</label><br>
+      <input type="text" id="stadion" name="stadion" required="true"><br>
+      <label for="referre1" required="true">Schiedsrichter 1:</label><br>
+      <input type="text" id="referre1" name="referre1" required="true"><br>
+      <label for="referre2" required="true">Schiedsrichter 2:</label><br>
+      <input type="text" id="referre2" name="referre2" required="true"><br>
+      <label for="linesperson1" required="true">Linesperson 1:</label><br>
+      <input type="text" id="linesperson1" name="linesperson1"><br>
+      <label for="linesperson2" required="true">Linesperson 2:</label><br>
+      <input type="text" id="linesperson2" name="linesperson2"><br>
+      <label for="liga" required="true">Liga:</label><br>
+      <select id="liga" name="liga" required="true">
+         <option value="ostseeliga" name="ostseeliga" required="true">Ostseeliga</option>
+         <option value="u15" name="u15" required="true">U-15</option>
+      </select> <br><br>
+      <input type="checkbox" id="live" name="live" value="true">
+      <label for="live"> Live</label><br>
+      <input type="checkbox" id="endet" name="endet" value="true">
+      <label for="endet"> Beendet</label><br>
+      <input type="checkbox" id="absage" name="absage" value="true">
+      <label for="absage"> Abgesagt</label><br>
+      <label for="scoreHome" required="true">Score Heim:</label><br>
+      <input type="number" id="scoreHome" name="scoreHome" required="true"><br>
+      <label for="scoreAway" required="true">Score Gast:</label><br>
+      <input type="number" id="scoreAway" name="scoreAway" required="true"><br>
+      <label for="scoreHome1" required="true">Score Heim 1:</label><br>
+      <input type="number" id="scoreHome1" name="scoreHome1" required="true"><br>
+      <label for="scoreAway1" required="true">Score Gast 1:</label><br>
+      <input type="number" id="scoreAway1" name="scoreAway1" required="true"><br>
+      <label for="scoreHome2" required="true">Score Heim 2:</label><br>
+      <input type="number" id="scoreHome2" name="scoreHome2" required="true"><br>
+      <label for="scoreAway2" required="true">Score Gast 2:</label><br>
+      <input type="number" id="scoreAway2" name="scoreAway2" required="true"><br>
+      <label for="scoreHome3" required="true">Score Heim 3:</label><br>
+      <input type="number" id="scoreHome3" name="scoreHome3" required="true"><br>
+      <label for="scoreAway3" required="true">Score Gast 3:</label><br>
+      <input type="number" id="scoreAway3" name="scoreAway3" required="true"><br>
+      <input type="checkbox" id="overtime" name="overtime" value="true">
+      <label for="overtime"> OT / Penalty</label><br>
+      <label for="scoreHomeOT">Score Heim OT:</label><br>
+      <input type="number" id="scoreHomeOT" name="scoreHomeOT"><br>
+      <label for="scoreAwayOT">Score Gast OT:</label><br>
+      <input type="number" id="scoreAwayOT" name="scoreAwayOT"><br>
+      <input type="submit" value="Submit"><br><br>
 	</form>
 	</div>
 </div>
+
+<script src="/js/nav.js"></script>
 </body>
 
 </html>

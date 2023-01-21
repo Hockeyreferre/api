@@ -19,6 +19,7 @@
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
+			text-align: center;
         }
     
         tr:nth-child(even) {
@@ -39,7 +40,7 @@
 <body>
 	<header id="navbar">
 		<nav class="navbar-container container">
-		  <a href="/api" class="home-link">
+		  <a href="/<%= liga %>" class="home-link">
 			<!-- <div class="navbar-logo"></div> -->
 			API Zentrum | LEV MV
 		  </a>
@@ -50,41 +51,38 @@
 		  </button>
 		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
 			<ul class="navbar-links">
-			  <li class="navbar-item"><a class="navbar-link" href="/api">Startseite</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/create">Spiel erstellen</a></li>
-			  <li class="navbar-item"><a class="navbar-link" href="/api/editTable">Tabelle bearbeiten</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
 			</ul>
 		  </div>
 		</nav>
 	</header>
     <table>
 		<tr>
-		<th>ID</th>
 		<th>Datum</th>
 		<th>Uhrzeit</th>
 		<th>Heim</th>
-		<th>LogoHeim</th>
-		<th>ScoreHeim</th>
-		<th>ScoreAway</th>
-		<th>LogoAway</th>
-		<th>Away</th>
-		<th>Stream</th>
+		<th>Logo Heim</th>
+		<th>Score Heim</th>
+		<th>Score Gast</th>
+		<th>Logo Gast</th>
+		<th>Gast</th>
 		</tr>
-		<% let liga = 'ostseeliga' %>
 		<% data.forEach(element => { %>
 			<tr>
-				<td><%= element.id %></td>
 				<td><%= element.date %></td>
 				<td><%= element.time %></td>
-				<td><%= element.home %></td>
-				<td><%= element.LogoHome %></td>
+				<td><%= element.home.name %></td>
+				<td><%= element.home.logo %></td>
 				<td><%= element.scoreHome %></td>
 				<td><%= element.scoreAway %></td>
-				<td><%= element.LogoAway %></td>
-				<td><%= element.away %></td>
-				<td><button><a href="/<%= liga %>/view/<%= element.id %>/<%= element.home %>/<%= element.away %>/<%= element.date %>">zum Spiel</a></button></td>
+				<td><%= element.away.logo %></td>
+				<td><%= element.away.name %></td>
+				<td><button><a href="/<%= liga %>/view/<%= element.id %>/<%= element.home.name %>/<%= element.away.name %>/<%= element.date %>">zum Spiel</a></button></td>
 				<td>
-						<form action="/api/delete/<%= element.id %>" method="POST" target="_blank">
+						<form action="/<%= liga %>/delete/<%= element.id %>" method="POST" target="_blank">
 						<input type="text" style="display: none;"
 							name="id"
 							value="<%= element.id %>">
@@ -103,10 +101,12 @@
 	<% team.forEach(element => { %>
 		<tr>
 			<td><%= element.name %></td>
-			<td><button><a href="/api/mannschaft/<%= element.name %>">zur Spielerliste</a></button></td>
+			<td><button><a href="/<%= liga %>/mannschaft/<%= element.name %>">zur Spielerliste</a></button></td>
 		</tr>
 <% }) %>
 </table>
+
+<script src="/js/nav.js"></script>
 
 </body>
 </html>
