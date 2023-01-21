@@ -14,7 +14,7 @@ router.get('', async (req, res) => {
 })
 
 router.get('/create', async (req, res) => {
-    res.render('create', { data: await Tabelle.find(), liga: liga  });
+    res.render('create', { u15: await Tabelle.find({ liga: 'u15' }), herren: await Tabelle.find({ liga: 'ostseeliga' }), liga: liga  });
 })
 
 router.get('/editTable', async (req, res) => {
@@ -190,7 +190,7 @@ router.post('/updateTeam/:name', async (req, res) => {
         const updatedData = req.body;
         const options = { new: true };
 
-        const result = await Tabelle.findOneAndUpdate({name: req.params.name, liga: 'u15'}, updatedData, options)
+        const result = await Tabelle.findOneAndUpdate({name: req.params.name, liga: liga}, updatedData, options)
 
         res.send(result)
     }

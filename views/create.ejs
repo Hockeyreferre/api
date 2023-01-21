@@ -4,7 +4,7 @@
 <head>
    <title>Spiel erstellen | API-LEV MV</title>
    <link rel="stylesheet" href="/css/navbar.css">
-   <link rel="stylesheet" href="/css/input.scss">
+   <link rel="stylesheet" href="/css/input.css">
    <style>
       a {
          color: black;
@@ -38,7 +38,7 @@
             </div>
          </nav>
       </header>
-      <h2>Spiel erstellen</h2>
+      <h2 style="text-align: center;">Spiel erstellen</h2>
 
       <form action="/<%= liga %>/add" method="post">
          <div class="container">
@@ -46,29 +46,80 @@
                <h4>Spielinformationen</h4>
                <div class="omrs-input-group">
                   <label class="omrs-input-underlined">
-                     <input required>
+                     <input required name="date">
                      <span class="omrs-input-label">Datum</span>
                   </label>
                </div>
                <div class="omrs-input-group">
                   <label class="omrs-input-underlined">
-                     <input required>
+                     <input required name="time">
                      <span class="omrs-input-label">Uhrzeit</span>
                   </label>
                </div>
                <div class="omrs-input-group">
                   <label class="omrs-input-underlined">
-                     <input required>
+                     <input required name="stadion">
                      <span class="omrs-input-label">Spielort</span>
                   </label>
                </div>
             </div>
-            <input class="chosen-value" type="text" value="" placeholder="Zum Suchen Tippen">
-            <ul class="value-list">
-               <% data.forEach(element => { %>
-                  <li><%= element.name %></li>
-               <% }) %>
-            </ul>
+            <div>
+               <h4>Mannschften & Liga</h4>
+               <label for="home">Heim:</label> <br>
+               <select name="home" id="home">
+                  <option disabled>U13 / U15</option>
+                  <% u15.forEach(element => { %>
+                     <option value="<%= element.name %>"><%= element.name %></option>
+                  <% }) %>
+                  <option disabled>Ostseeliga</option>
+                  <% herren.forEach(element => { %>
+                     <option value="<%= element.name %>"><%= element.name %></option>
+                  <% }) %>
+               </select> <br>
+               <label for="away">Gast:</label> <br>
+               <select name="away" id="away">
+                  <option disabled>U13 / U15</option>
+                  <% u15.forEach(element => { %>
+                     <option value="<%= element.name %>"><%= element.name %></option>
+                  <% }) %>
+                  <option disabled>Ostseeliga</option>
+                  <% herren.forEach(element => { %>
+                     <option value="<%= element.name %>"><%= element.name %></option>
+                  <% }) %>
+               </select> <br>
+               <label for="liga">Liga:</label> <br>
+               <select name="liga" id="liga">
+                  <option value="u15">U13 / U15</option>
+                  <option value="ostseeliga">Ostseeliga</option>
+               </select>
+            </div>
+            <div>
+               <h4>Offizielle</h4>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required name="referre1">
+                     <span class="omrs-input-label">Schiedsrichter 1</span>
+                  </label>
+               </div>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required name="referre2">
+                     <span class="omrs-input-label">Schiedsrichter 2</span>
+                  </label>
+               </div>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required name="linesperson1">
+                     <span class="omrs-input-label">Linesperson 1</span>
+                  </label>
+               </div>
+               <div class="omrs-input-group">
+                  <label class="omrs-input-underlined">
+                     <input required name="linesperson2">
+                     <span class="omrs-input-label">Linesperson 2</span>
+                  </label>
+               </div>
+            </div>
          </div>
          <button class="btn" type="submit">
             <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
