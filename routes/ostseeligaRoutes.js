@@ -2,8 +2,10 @@ const express = require('express');
 const Model = require('../models/model');
 const Aufstellung = require('../models/aufstellung');
 const Team = require('../models/team');
+const Goal = require('../models/goal');
 const Tabelle = require('../models/tabelle');
 const Trainer = require('../models/trainer');
+const Penalty = require('../models/penalty');
 const router = express.Router();
 const sort = { date: -1, time: 1 }
 const table = { place: 1 }
@@ -25,7 +27,7 @@ router.get('/mannschaft/:name', async (req, res) => {
     res.render('mannschaft', { data: await Team.find({ teamName: req.params.name, liga: liga }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name, liga: liga }), liga: liga })
 })
 
-router.get('/view/:id/:home/:away/:date', async (req, res) => {
+router.get('/game/:id/:home/:away/:date', async (req, res) => {
     res.render('detail', { 
         data: await Model.findById(req.params.id), 
         aufstellungHome: await Team.find({teamName: req.params.home}),
@@ -40,10 +42,22 @@ router.get('/view/:id/:home/:away/:date', async (req, res) => {
     });
 })
 
+router.get('/:period/:id/:home/:away', async (req, res) => {
+    res.render('period', { 
+        data: await Model.findById(req.params.id),  
+        period: req.params.period,
+        goalsHome: await Goal.find({ gameID: req.params.id, verein: req.params.home }), 
+        goalsAway: await Goal.find({ gameID: req.params.id, verein: req.params.away }),
+        penaltysHome: await Penalty.find({ gameID: req.params.id, verein: req.params.home }), 
+        penaltysAway: await Penalty.find({ gameID: req.params.id, verein: req.params.away }),
+        liga: liga 
+    });
+})
+
 router.post('/add', async (req, res) => {
     const data = new Model({
-        home: await Tabelle.find({ name: req.body.home }),
-        away: await Tabelle.find({ name: req.body.away }),
+        home: await Tabelle.findOne({ name: req.body.home }),
+        away: await Tabelle.findOne({ name: req.body.away }),
         date: req.body.date,
         time: req.body.time,
         stadion: req.body.stadion,
@@ -65,6 +79,45 @@ router.post('/add', async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 })
+
+router.post('/addGoal/:id/:name/:period', async (req, res) => {
+    const data = new Goal({
+        gameID: req.params.id,
+        time: req.body.time,
+        period: req.params.period,
+        verein: req.params.name,
+        torschütze: await Team.findOne({ jersey: req.body.torschütze, teamName: req.params.name }),
+        vorlage1: await Team.findOne({ jersey: req.body.vorlage1, teamName: req.params.name }),
+        vorlage2: await Team.findOne({ jersey: req.body.vorlage2, teamName: req.params.name })
+    })
+
+    try {
+        await data.save();
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
+router.post('/addPenalty/:id/:name/:period', async (req, res) => {
+    const data = new Penalty({
+        gameID: req.params.id,
+        time: req.body.time,
+        period: req.params.period,
+        verein: req.params.name,
+        player: await Team.findOne({ jersey: req.body.player, teamName: req.params.name }),
+        vergehen: req.body.vergehen,
+        length: req.body.length
+    })
+
+    try {
+        await data.save();
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
 
 router.post('/aufstellung/:name/:date', async (req, res) => {
     const aufstellung = new Aufstellung({
@@ -179,6 +232,42 @@ router.post('/updatePlayer/:id', async (req, res) => {
         )
 
         res.send(result)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+router.get('/toggleLive/:id/:live', async (req, res) => {
+    let live
+    req.params.live === 'true' ? live= false : live = true
+
+    try {
+        const id = req.params.id;
+        const options = { new: true };
+
+        const result = await Model.findByIdAndUpdate(
+            id, live, options
+        )
+
+        res.send(result)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+router.get('/toggleCancled/:id/:abgesagt', async (req, res) => {
+    let abgesagt
+    req.params.abgesagt === 'true' ? abgesagt= false : abgesagt = true
+
+    try {
+        const id = req.params.id;
+        const options = { new: true };
+
+        await Model.findByIdAndUpdate(
+            id, abgesagt, options
+        )
     }
     catch (error) {
         res.status(500).json({ message: error.message })

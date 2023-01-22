@@ -61,14 +61,6 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    scoreHome: {
-        required: false,
-        type: Number
-    },
-    scoreAway: {
-        required: false,
-        type: Number
-    },
     scoreHome1: {
         required: false,
         type: Number

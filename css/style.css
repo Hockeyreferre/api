@@ -1,0 +1,43 @@
+.h2Detail {
+    text-align: center;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    width: 45%;
+}
+
+select {
+    min-width: 150px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.flex {
+    display: flex;
+}
+.item {
+    width: 20%;
+}
+a {
+    color: black;
+    text-decoration: none;
+}

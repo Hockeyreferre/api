@@ -5,37 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/navbar.css">
-	<!-- <link rel="stylesheet" href="/css/style.css"> -->
+	<link rel="stylesheet" href="/css/style.css">
     <title>Startseite | API LEV MV</title>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-    
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-			text-align: center;
-        }
-    
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-        .flex {
-            display: flex;
-        }
-        .item {
-            width: 20%;
-        }
-		a {
-			color: black;
-			text-decoration: none;
-		}
-    </style>
 </head>
 <body>
 	<header id="navbar">
@@ -76,11 +47,11 @@
 				<td><%= element.time %></td>
 				<td><%= element.home.name %></td>
 				<td><%= element.home.logo %></td>
-				<td><%= element.scoreHome %></td>
-				<td><%= element.scoreAway %></td>
+				<td><%= element.scoreHome1 + element.scoreHome2 + element.scoreHome3 %></td>
+				<td><%= element.scoreAway1 + element.scoreAway2 + element.scoreAway3 %></td>
 				<td><%= element.away.logo %></td>
 				<td><%= element.away.name %></td>
-				<td><button><a href="/<%= liga %>/view/<%= element.id %>/<%= element.home.name %>/<%= element.away.name %>/<%= element.date %>">zum Spiel</a></button></td>
+				<td><button><a href="/<%= liga %>/game/<%= element.id %>/<%= element.home.name %>/<%= element.away.name %>/<%= element.date %>">zum Spiel</a></button></td>
 				<td>
 						<form action="/<%= liga %>/delete/<%= element.id %>" method="POST" target="_blank">
 						<input type="text" style="display: none;"

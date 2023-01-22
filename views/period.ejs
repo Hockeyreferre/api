@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Gamedetail | API-LEV MV</title>
+	<link rel="stylesheet" href="/css/navbar.css">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header id="navbar">
+		<nav class="navbar-container container">
+		  <a href="/<%= liga %>" class="home-link">
+			<!-- <div class="navbar-logo"></div> -->
+			API Zentrum | LEV MV
+		  </a>
+		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
+			<ul class="navbar-links">
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
+			</ul>
+		  </div>
+		</nav>
+	</header>
+	<h2 class="h2Detail"><%= data.home.name %> : <%= data.away.name %></h2>
+	<h2 style="margin-left: 20px;"><%= period %> / 3</h2>
+	<div style="margin-left: 20px; display: flex;">
+		<div style="width: 50%; margin-right: 20px;">
+			<h3>Heim</h3>
+			<div style="display: flex;">
+				<div style="width: 50%; margin-right: 10px;">
+					<form action="/<%= liga %>/addGoal/<%= data.id %>/<%= data.home.name %>/<%= period %>" method="post">
+						<h4>Tor hinzufügen</h4>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+							   <input required name="time">
+							   <span class="omrs-input-label">Zeit</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input required name="torschütze" type="number">
+								<span class="omrs-input-label">Torschütze</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+							   <input name="vorlage1" type="number">
+							   <span class="omrs-input-label">Vorlage 1</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+							   <input name="vorlage2" type="number">
+							   <span class="omrs-input-label">Vorlage 2</span>
+							</label>
+						</div>
+						<button type="submit">Hinzufügen</button>
+					</form>
+				</div>
+				<div style="width: 50%; margin-right: 10px;">
+					<form action="/<%= liga %>/addPenalty/<%= data.id %>/<%= data.home.name %>/<%= period %>" method="post">
+						<h4>Strafe hinzufügen</h4>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+							   <input required name="time">
+							   <span class="omrs-input-label">Zeit</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input required name="player" type="number">
+								<span class="omrs-input-label">Nummer</span>
+							</label>
+						</div>
+						<label for="vergehen">Vergehen:</label> <br>
+						<select name="vergehen" id="vergehen" style="width: 64%;">
+							<option value="Bandencheck">Bandencheck</option>
+							<option value="Bankstrafe">Bankstrafe</option>
+							<option value="Behinderung">Behinderung</option>
+							<option value="Beinstellen">Beinstellen</option>
+							<option value="Beschimpfung von Offiziellen">Beschimpfung von Offiziellen</option>
+							<option value="Check gg Kopf/Nacken">Check gg Kopf/Nacken</option>
+							<option value="Check von hinten">Check von hinten</option>
+							<option value="Ellbogencheck">Ellbogencheck</option>
+							<option value="Faustkampf">Faustkampf</option>
+							<option value="Haken">Haken</option>
+							<option value="Halten">Halten</option>
+							<option value="Halten des Stockes">Halten des Stockes</option>
+							<option value="Hoher Stock">Hoher Stock</option>
+							<option value="Kniecheck">Kniecheck</option>
+							<option value="Schwalbe">Schwalbe</option>
+							<option value="Slew-Footing">Slew-Footing</option>
+							<option value="Später Check">Später Check</option>
+							<option value="Spielverzögerung">Spielverzögerung</option>
+							<option value="Stockcheck">Stockcheck</option>
+							<option value="Stockendstoss">Stockendstoss</option>
+							<option value="Stockschlag">Stockschlag</option>
+							<option value="Stockstich">Stockstich</option>
+							<option value="sonstige Vergehen">sonstige Vergehen</option>
+							<option value="Torhüterbehinderung">Torhüterbehinderung</option>
+							<option value="Übertriebene Härte">Übertriebene Härte</option>
+							<option value="Unkorrekter Körperangriff">Unkorrekter Körperangriff</option>
+							<option value="Unkorrektes Anspiel">Unkorrektes Anspiel</option>
+							<option value="unkorrekte Ausrüstung">unkorrekte Ausrüstung</option>
+							<option value="unsportliches Verhalten">unsportliches Verhalten</option>
+							<option value="Verschieben des Tores">Verschieben des Tores</option>
+							<option value="Zu viele Spieler auf dem Eis">Zu viele Spieler auf dem Eis</option>
+							<option value="Zuspielen des Stockes">Zuspielen des Stockes</option>
+						</select> <br>
+						<label for="length">Länge:</label> <br>
+						<select name="length" id="length" style="width: 64%;">
+							<option value="2">2 Minuten</option>
+							<option value="5">5 Minuten</option>
+							<option value="10">10 Minuten</option>
+							<option value="2 + 2">2 Min. + 2 Min.</option>
+							<option value="2 + 5">2 Min. + 5 Min.</option>
+							<option value="2 + 10">2 Min. + 10 Min.</option>
+							<option value="2 + 2 + 10">2 + 2 + 10 Min.</option>
+							<option value="2 + 2 + 2 + 10">2 + 2 + 2 + 10 Min.</option>
+							<option value="2 + 5 + 20">2 Min. + 5 Min. + SpD</option>
+							<option value="5 + 20">5 Min. + Spieldauer</option>
+							<option value="20">Spieldauer</option>
+							<option value="25">Matchstrafe</option>
+						</select> <br> <br>
+						<button style="margin-top: 7px;" type="submit">Hinzufügen</button>
+					</form>
+				</div>
+			</div>
+			<h4>Tore</h4>
+			<table>
+				<tr>
+					<th>Drittel</th>
+					<th>Zeit</th>
+					<th>Torschütze</th>
+					<th>Vorlage 1</th>
+					<th>Vorlage 2</th>
+				</tr>
+				<% goalsHome.forEach(element=> { %>
+					<tr>
+						<td>
+							<%= element.period %>
+						</td>
+						<td>
+							<%= element.time %>
+						</td>
+						<td>
+							<%= element.torschütze.jersey %>
+							- <%= element.torschütze.name %>
+						</td>
+						<td>
+							<%= element.vorlage1.jersey %>
+							- <%= element.vorlage1.name %>
+						</td>
+						<td>
+							<%= element.vorlage2.jersey %>
+								- <%= element.vorlage2.name %>
+						</td>
+					</tr>
+					<% }) %>
+			</table>
+			<h4>Strafen</h4>
+			<table>
+				<tr>
+					<th>Drittel</th>
+					<th>Zeit</th>
+					<th>Spieler</th>
+					<th>Vergehn</th>
+					<th>Länge</th>
+				</tr>
+				<% penaltysHome.forEach(element=> { %>
+					<tr>
+						<td>
+							<%= element.period %>
+						</td>
+						<td>
+							<%= element.time %>
+						</td>
+						<td>
+							<%= element.player.jersey %>
+							- <%= element.player.fullname %>
+						</td>
+						<td>
+							<%= element.vergehen %>
+						</td>
+						<td>
+							<%= element.length %>
+						</td>
+					</tr>
+					<% }) %>
+			</table>
+		</div>
+		<div style="width: 50%;">
+			<h3>Gast</h3>
+			<div style="display: flex;">
+				<div style="width: 50%; margin-right: 10px;">
+					<form action="/<%= liga %>/addGoal/<%= data.id %>/<%= data.away.name %>/<%= period %>" method="post">
+						<h4>Tor hinzufügen</h4>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input required name="time">
+								<span class="omrs-input-label">Zeit</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input required name="torschütze" type="number">
+								<span class="omrs-input-label">Torschütze</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input name="vorlage1" type="number">
+								<span class="omrs-input-label">Vorlage 1</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input name="vorlage2" type="number">
+								<span class="omrs-input-label">Vorlage 2</span>
+							</label>
+						</div>
+						<button type="submit">Hinzufügen</button>
+					</form>
+				</div>
+				<div style="width: 50%; margin-right: 10px;">
+					<form action="/<%= liga %>/addPenalty/<%= data.id %>/<%= data.away.name %>/<%= period %>" method="post">
+						<h4>Strafe hinzufügen</h4>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input required name="time">
+								<span class="omrs-input-label">Zeit</span>
+							</label>
+						</div>
+						<div class="omrs-input-group">
+							<label class="omrs-input-underlined">
+								<input required name="player" type="number">
+								<span class="omrs-input-label">Nummer</span>
+							</label>
+						</div>
+						<label for="vergehen">Vergehen:</label> <br>
+						<select name="vergehen" id="vergehen" style="width: 64%;">
+							<option value="Bandencheck">Bandencheck</option>
+							<option value="Bankstrafe">Bankstrafe</option>
+							<option value="Behinderung">Behinderung</option>
+							<option value="Beinstellen">Beinstellen</option>
+							<option value="Beschimpfung von Offiziellen">Beschimpfung von Offiziellen</option>
+							<option value="Check gg Kopf/Nacken">Check gg Kopf/Nacken</option>
+							<option value="Check von hinten">Check von hinten</option>
+							<option value="Ellbogencheck">Ellbogencheck</option>
+							<option value="Faustkampf">Faustkampf</option>
+							<option value="Haken">Haken</option>
+							<option value="Halten">Halten</option>
+							<option value="Halten des Stockes">Halten des Stockes</option>
+							<option value="Hoher Stock">Hoher Stock</option>
+							<option value="Kniecheck">Kniecheck</option>
+							<option value="Schwalbe">Schwalbe</option>
+							<option value="Slew-Footing">Slew-Footing</option>
+							<option value="Später Check">Später Check</option>
+							<option value="Spielverzögerung">Spielverzögerung</option>
+							<option value="Stockcheck">Stockcheck</option>
+							<option value="Stockendstoss">Stockendstoss</option>
+							<option value="Stockschlag">Stockschlag</option>
+							<option value="Stockstich">Stockstich</option>
+							<option value="sonstige Vergehen">sonstige Vergehen</option>
+							<option value="Torhüterbehinderung">Torhüterbehinderung</option>
+							<option value="Übertriebene Härte">Übertriebene Härte</option>
+							<option value="Unkorrekter Körperangriff">Unkorrekter Körperangriff</option>
+							<option value="Unkorrektes Anspiel">Unkorrektes Anspiel</option>
+							<option value="unkorrekte Ausrüstung">unkorrekte Ausrüstung</option>
+							<option value="unsportliches Verhalten">unsportliches Verhalten</option>
+							<option value="Verschieben des Tores">Verschieben des Tores</option>
+							<option value="Zu viele Spieler auf dem Eis">Zu viele Spieler auf dem Eis</option>
+							<option value="Zuspielen des Stockes">Zuspielen des Stockes</option>
+						</select> <br>
+						<label for="length">Länge:</label> <br>
+						<select name="length" id="length" style="width: 64%;">
+							<option value="2">2 Minuten</option>
+							<option value="5">5 Minuten</option>
+							<option value="10">10 Minuten</option>
+							<option value="2 + 2">2 Min. + 2 Min.</option>
+							<option value="2 + 5">2 Min. + 5 Min.</option>
+							<option value="2 + 10">2 Min. + 10 Min.</option>
+							<option value="2 + 2 + 10">2 + 2 + 10 Min.</option>
+							<option value="2 + 2 + 2 + 10">2 + 2 + 2 + 10 Min.</option>
+							<option value="2 + 5 + 20">2 Min. + 5 Min. + SpD</option>
+							<option value="5 + 20">5 Min. + Spieldauer</option>
+							<option value="20">Spieldauer</option>
+							<option value="25">Matchstrafe</option>
+						</select> <br> <br>
+						<button style="margin-top: 7px;" type="submit">Hinzufügen</button>
+					</form>
+				</div>
+			</div>
+			<h4>Tore</h4>
+			<table>
+				<tr>
+					<th>Zeit</th>
+					<th>Torschütze</th>
+					<th>Vorlage 1</th>
+					<th>Vorlage 2</th>
+				</tr>
+				<% goalsAway.forEach(element=> { %>
+					<tr>
+						<td>
+							<%= element.time %>
+						</td>
+						<td>
+							<%= element.torschütze.jersey %>
+							- <%= element.torschütze.name %>
+						</td>
+						<td>
+							<%= element.vorlage1.jersey %>
+							- <%= element.vorlage1.name %>
+						</td>
+						<td>
+							<%= element.vorlage2.jersey %>
+							- <%= element.vorlage2.name %>
+						</td>
+					</tr>
+					<% }) %>
+			</table>
+			<h4>Strafen</h4>
+		</div>
+	</div>
+	<script src="/js/nav.js"></script>
+</body>
+</html>
