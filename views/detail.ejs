@@ -29,7 +29,7 @@
 		  </div>
 		</nav>
 	</header>
-	<h2 class="h2Detail"><%= data.home.name %> ( <%= data.scoreHome1 + data.scoreHome2 + data.scoreHome3 %> ) : ( <%= data.scoreAway1 + data.scoreAway2 + data.scoreAway3 %> ) <%= data.away.name %> <%= data.live == true ? '( • LIVE )' : '' %></h2>
+	<h2 class="h2Detail"><%= data.home.name %> ( <%= goalsHome.length %> ) : ( <%= goalsAway.length %> ) <%= data.away.name %> <%= data.live == true ? '( • LIVE )' : '' %></h2>
 	<div style="margin-right: 40px;">
 		<ul class="auswahl-links">
 			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/1/<%= data.id %>/<%= data.home.name %>/<%= data.away.name %>">1 / 3</a></li>

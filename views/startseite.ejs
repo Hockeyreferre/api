@@ -36,10 +36,10 @@
 		<th>Uhrzeit</th>
 		<th>Heim</th>
 		<th>Logo Heim</th>
-		<th>Score Heim</th>
-		<th>Score Gast</th>
 		<th>Logo Gast</th>
 		<th>Gast</th>
+		<th>Schiedsrichter 1</th>
+		<th>Schiedsrichter 2</th>
 		</tr>
 		<% data.forEach(element => { %>
 			<tr>
@@ -47,10 +47,10 @@
 				<td><%= element.time %></td>
 				<td><%= element.home.name %></td>
 				<td><%= element.home.logo %></td>
-				<td><%= element.scoreHome1 + element.scoreHome2 + element.scoreHome3 %></td>
-				<td><%= element.scoreAway1 + element.scoreAway2 + element.scoreAway3 %></td>
 				<td><%= element.away.logo %></td>
 				<td><%= element.away.name %></td>
+				<td><%= element.referre1 %></td>
+				<td><%= element.referre2 %></td>
 				<td><button><a href="/<%= liga %>/game/<%= element.id %>/<%= element.home.name %>/<%= element.away.name %>/<%= element.date %>">zum Spiel</a></button></td>
 				<td>
 						<form action="/<%= liga %>/delete/<%= element.id %>" method="POST" target="_blank">

@@ -12,7 +12,7 @@ const table = { place: 1 }
 const liga = 'u15'
 
 router.get('', async (req, res) => {
-    res.render('startseite', { data: await Model.find({ liga: liga }).sort(sort), team: await Tabelle.find({ liga: liga }), liga: liga,  one: await Model.findOne({ liga: liga })});
+    res.render('startseite', { data: await Model.find({ liga: liga }).sort(sort), team: await Tabelle.find({ liga: liga }), liga: liga, one: await Model.findOne({ liga: liga }) });
 })
 
 router.get('/create', async (req, res) => {
@@ -38,7 +38,9 @@ router.get('/game/:id/:home/:away/:date', async (req, res) => {
         date: req.params.date, 
         tableHome: await Tabelle.findOne({ name: req.params.home }), 
         tableAway: await Tabelle.findOne({ name: req.params.away }),
-        liga: liga 
+        liga: liga,
+        goalsHome: await Goal.find({ gameID: req.params.id, verein: req.params.home }), 
+        goalsAway: await Goal.find({ gameID: req.params.id, verein: req.params.away }),
     });
 })
 

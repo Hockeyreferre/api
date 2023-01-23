@@ -153,15 +153,15 @@
 						</td>
 						<td>
 							<%= element.torschütze.jersey %>
-							- <%= element.torschütze.name %>
+							- <%= element.torschütze.fullname %>
 						</td>
 						<td>
 							<%= element.vorlage1.jersey %>
-							- <%= element.vorlage1.name %>
+							- <%= element.vorlage1.fullname %>
 						</td>
 						<td>
 							<%= element.vorlage2.jersey %>
-								- <%= element.vorlage2.name %>
+								- <%= element.vorlage2.fullname %>
 						</td>
 					</tr>
 					<% }) %>
@@ -302,6 +302,7 @@
 			<h4>Tore</h4>
 			<table>
 				<tr>
+					<th>Drittel</th>
 					<th>Zeit</th>
 					<th>Torschütze</th>
 					<th>Vorlage 1</th>
@@ -310,24 +311,56 @@
 				<% goalsAway.forEach(element=> { %>
 					<tr>
 						<td>
+							<%= element.period %>
+						</td>
+						<td>
 							<%= element.time %>
 						</td>
 						<td>
 							<%= element.torschütze.jersey %>
-							- <%= element.torschütze.name %>
+							- <%= element.torschütze.fullname %>
 						</td>
 						<td>
 							<%= element.vorlage1.jersey %>
-							- <%= element.vorlage1.name %>
+							- <%= element.vorlage1.fullname %>
 						</td>
 						<td>
 							<%= element.vorlage2.jersey %>
-							- <%= element.vorlage2.name %>
+								- <%= element.vorlage2.fullname %>
 						</td>
 					</tr>
 					<% }) %>
 			</table>
 			<h4>Strafen</h4>
+			<table>
+				<tr>
+					<th>Drittel</th>
+					<th>Zeit</th>
+					<th>Spieler</th>
+					<th>Vergehn</th>
+					<th>Länge</th>
+				</tr>
+				<% penaltysAway.forEach(element=> { %>
+					<tr>
+						<td>
+							<%= element.period %>
+						</td>
+						<td>
+							<%= element.time %>
+						</td>
+						<td>
+							<%= element.player.jersey %>
+								- <%= element.player.fullname %>
+						</td>
+						<td>
+							<%= element.vergehen %>
+						</td>
+						<td>
+							<%= element.length %>
+						</td>
+					</tr>
+					<% }) %>
+			</table>
 		</div>
 	</div>
 	<script src="/js/nav.js"></script>
