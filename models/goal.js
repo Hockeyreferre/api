@@ -14,7 +14,7 @@ const goal = new mongoose.Schema({
         type: String
     },
     torschütze: {
-        name: {
+        fullname: {
             type: String
         },
         jersey: {
@@ -22,7 +22,7 @@ const goal = new mongoose.Schema({
         }
     },
     vorlage1: {
-        name: {
+        fullname: {
             type: String
         },
         jersey: {
@@ -30,7 +30,7 @@ const goal = new mongoose.Schema({
         }
     },
     vorlage2: {
-        name: {
+        fullname: {
             type: String
         },
         jersey: {

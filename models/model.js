@@ -49,10 +49,6 @@ const dataSchema = new mongoose.Schema({
         required: false,
         type: Boolean
     },
-    beendet: {
-        required: false,
-        type: Boolean
-    },
     abgesagt: {
         required: false,
         type: Boolean
@@ -61,41 +57,9 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    scoreHome1: {
-        required: false,
-        type: Number
-    },
-    scoreAway1: {
-        required: false,
-        type: Number
-    },
-    scoreHome2: {
-        required: false,
-        type: Number
-    },
-    scoreAway2: {
-        required: false,
-        type: Number
-    },
-    scoreHome3: {
-        required: false,
-        type: Number
-    },
-    scoreAway3: {
-        required: false,
-        type: Number
-    },
     overtime: {
         required: false,
         type: Boolean
-    },
-    scoreHomeOT: {
-        required: false,
-        type: Number
-    },
-    scoreAwayOT: {
-        required: false,
-        type: Number
     }
 })
 

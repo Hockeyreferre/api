@@ -5,19 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Tabelle | API-LEV MV</title>
-    <style>
-        .display {
-			display: flex;
-			flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-		}
-        a {
-			color: black;
-			text-decoration: none;
-		}
-    </style>
 </head>
 <body>
   <header id="navbar">
@@ -42,23 +31,30 @@
 		</nav>
 	</header>
     <h2>Tabelle</h2>
-    <div class="display">
-        <% data.forEach(element => { %>
+    <div class="">
+      <table>
+        <tr>
+          <th>Name</th>
+					<th>Platz</th>
+					<th>Spiele</th>
+					<th>Tore</th>
+					<th>Gegentore</th>
+					<th>Punkte</th>
+				</tr>
+          <% data.forEach(element => { %>
+            <tr>
             <form action="/<%= liga %>/updateTeam/<%= element.name %>" method="post">
-                <h4><%= element.name %></h4>
-                <label for="place">Platz:</label>
-                <input type="number" name="place" id="place" value="<%= element.place %>"><br>
-                <label for="games">Spiele:</label>
-                <input type="number" name="games" id="games" value="<%= element.games %>"><br>
-                <label for="goals">Tore:</label>
-                <input type="number" name="goals" id="goals" value="<%= element.goals %>"><br>
-                <label for="ggoals">Gegentore:</label>
-                <input type="number" name="ggoals" id="ggoals" value="<%= element.ggoals %>"><br>
-                <label for="points">Punkte:</label>
-                <input type="number" name="points" id="points" value="<%= element.points %>"><br>
-                <button type="submit">Update</button>
+                <td><span name="teamNname" id="teamName"><%= element.name %></span></td>
+                <td><input type="number" name="place" id="place" value="<%= element.place %>"></td>
+                <td><input type="number" name="games" id="games" value="<%= element.games %>"></td>
+                <td><input type="number" name="goals" id="goals" value="<%= goals.length %>"></td>
+                <td><input type="number" name="ggoals" id="ggoals" value="<%= element.ggoals %>"></td>
+                <td><input type="number" name="points" id="points" value="<%= element.points %>"></td>
+                <td><button type="submit">Update</button></td>
             </form>
+          </tr>
         <% }) %>
+      </table>
     </div>
 
     <script src="/js/nav.js"></script>

@@ -37,13 +37,13 @@
 			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/3/<%= data.id %>/<%= data.home.name %>/<%= data.away.name %>">3 / 3</a></li>
 		</ul>
 		<ul class="auswahl-links">
-			<li class="auswahl-item"><a class="auswahl-link" href="/">Aufstellung Heim</a></li>
-			<li class="auswahl-item"><a class="auswahl-link" href="/">Aufstellung Gast</a></li>
-			<li class="auswahl-item"><a class="auswahl-link" href="/">Offizielle</a></li>
+			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/aufstellung/<%= data.home.name %>/<%= data.id %>">Aufstellung Heim</a></li>
+			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/aufstellung/<%= data.away.name %>/<%= data.id %>">Aufstellung Gast</a></li>
+			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/offizielle/<%= data.id %>">Offizielle</a></li>
 		</ul>
 		<ul class="auswahl-links">
 			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/toggleLive/<%= data.id %>/<%= data.live %>">Live / Live beenden</a></li>
-			<li class="auswahl-item"><a class="auswahl-link" href="/ostseeliga">Overtime / Penalty</a></li>
+			<li class="auswahl-item"><a class="auswahl-link" href="#">Overtime / Penalty</a></li>
 			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/toggleCancled/<%= data.id %>/<%= data.abgesagt %>">Abgesagt</a></li>
 		</ul>
 	</div>

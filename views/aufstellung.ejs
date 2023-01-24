@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Aufstellung | API-LEV MV</title>
+	<link rel="stylesheet" href="/css/navbar.css">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header id="navbar">
+		<nav class="navbar-container container">
+		  <a href="/<%= liga %>" class="home-link">
+			<!-- <div class="navbar-logo"></div> -->
+			API Zentrum | LEV MV
+		  </a>
+		  <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <div id="navbar-menu" aria-labelledby="navbar-toggle">
+			<ul class="navbar-links">
+			  <li class="navbar-item"><a class="navbar-link" href="/ligaauswahl">Ligaauswahl</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>">Startseite</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/create">Spiel erstellen</a></li>
+			  <li class="navbar-item"><a class="navbar-link" href="/<%= liga %>/editTable">Tabelle bearbeiten</a></li>
+			</ul>
+		  </div>
+		</nav>
+	</header>
+	<h2 class="h2Detail">Aufstellung: <%= team %></h2>
+	<div style="margin-left: 20px;">
+        <form action="/<%= liga %>/aufstellung/<%= team %>/<%= id %>" method="post">
+            <div class="row-1">
+                <h4>Reihe 1</h4>
+                <div class="row">
+                    <select name="LF1" id="LF1">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="C1" id="C1">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RF1" id="RF1">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="row">
+                    <select name="LH1" id="LH1">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RH1" id="RH1">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <h4>Reihe 2</h4>
+                <div class="row">
+                    <select name="LF2" id="LF2">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="C2" id="C2">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RF2" id="RF2">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="row">
+                    <select name="LH2" id="LH2">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RH2" id="RH2">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <h4>Reihe 3</h4>
+                <div class="row">
+                    <select name="LF3" id="LF3">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="C3" id="C3">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RF3" id="RF3">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="row">
+                    <select name="LH3" id="LH3">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RH3" id="RH3">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <h4>Reihe 4</h4>
+                <div class="row">
+                    <select name="LF4" id="LF4">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="C4" id="C4">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RF4" id="RF4">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="row">
+                    <select name="LH4" id="LH4">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="RH4" id="RH4">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <h4>Torhüter</h4>
+                <div class="row">
+                    <select name="TW1" id="TW1">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                    <select name="TW2" id="TW2">
+                        <option>  </option>
+                        <% players.forEach(element => { %>
+                            <option value="<%= element.fullname %>"><%= element.jersey %>  -  <%= element.fullname %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Bestätigen</button>
+        </form>
+	</div>
+	<script src="/js/nav.js"></script>
+</body>
+</html>
