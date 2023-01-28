@@ -242,15 +242,15 @@ router.post('/updatePlayer/:id', async (req, res) => {
 })
 
 router.get('/toggleLive/:id/:live', async (req, res) => {
-    let live
-    req.params.live === 'true' ? live= false : live = true
+    let live1
+    req.params.live === 'true' ? live1 = false : live1 = true
 
     try {
         const id = req.params.id;
         const options = { new: true };
 
         const result = await Model.findByIdAndUpdate(
-            id, live, options
+            id, {live: live1}, options
         )
 
         res.send(result)
