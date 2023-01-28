@@ -59,7 +59,8 @@ router.get('/:period/:id/:home/:away', async (req, res) => {
 router.get('/aufstellung/:name/:id', async (req, res) => {
     res.render('aufstellung', { 
         data: await Model.findById(req.params.id),
-        players: await Team.find({ teamName: req.params.name, liga: liga }), 
+        players: await Team.find({ teamName: req.params.name, liga: liga }),
+        trainers: await Trainer.find({ teamName: req.params.name, liga: liga }), 
         liga: liga,
         team: req.params.name,
         id: req.params.id
@@ -161,6 +162,7 @@ router.post('/aufstellung/:name/:id', async (req, res) => {
         LH4: await Team.findOne({ fullname: req.body.LH4 }),
         TW1: await Team.findOne({ fullname: req.body.TW1 }),
         TW2: await Team.findOne({ fullname: req.body.TW2 }),
+        Trainer: req.body.trainer
     })
     try {
 

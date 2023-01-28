@@ -182,12 +182,7 @@ const aufstellung = new mongoose.Schema({
         }
     }, 
     Trainer: {
-        fullname: {
-            type: String
-        },
-        jersey: {
-            type: Number
-        }
+        type: String
     }
 })
 

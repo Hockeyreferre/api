@@ -32,6 +32,13 @@
 	<h2 class="h2Detail">Aufstellung: <%= team %></h2>
 	<div style="margin-left: 20px;">
         <form action="/<%= liga %>/aufstellung/<%= team %>/<%= id %>" method="post">
+            <label for="trainer">Trainer:</label>
+            <select style="width: min-content;" name="trainer" id="trainer">
+                <option>  </option>
+                <% trainers.forEach(element => { %>
+                    <option value="<%= element.fullname %>"><%= element.fullname %></option>
+                <% }) %>
+            </select>
             <div class="row-1">
                 <h4>Reihe 1</h4>
                 <div class="row">
