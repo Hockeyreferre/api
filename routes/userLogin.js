@@ -20,7 +20,6 @@ router.post('/login', async (req, res) => {
               if (result == null) {
                 res.send({"error": "This email address is not recognised, please check you have entered your email correctly"});
               } else {
-                console.log("Email recognised");
                 callback(null, result);
               }
             }

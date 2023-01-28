@@ -6,96 +6,188 @@ const aufstellung = new mongoose.Schema({
         type: String
     },
     RF1: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     C1: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LF1: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RH1: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LH1: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RF2: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     C2: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LF2: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RH2: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LH2: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RF3: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     C3: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LF3: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RH3: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LH3: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RF4: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     C4: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LF4: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     RH4: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     LH4: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     TW1: {
-        required: true,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     },
     TW2: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     }, 
     Trainer: {
-        required: false,
-        type: Object
+        fullname: {
+            type: String
+        },
+        jersey: {
+            type: Number
+        }
     }
 })
 

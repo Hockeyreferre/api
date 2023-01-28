@@ -139,28 +139,28 @@ router.post('/addPenalty/:id/:name/:period', async (req, res) => {
 router.post('/aufstellung/:name/:id', async (req, res) => {
     const aufstellung = new Aufstellung({
         teamName: req.params.name + " " + req.params.id,
-        RF1: await Team.find({ fullname: req.body.RF1 }),
-        C1: await Team.find({ fullname: req.body.C1 }),
-        LF1: await Team.find({ fullname: req.body.LF1 }),
-        RH1: await Team.find({ fullname: req.body.RH1 }),
-        LH1: await Team.find({ fullname: req.body.LH1 }),
-        RF2: await Team.find({ fullname: req.body.RF2 }),
-        C2: await Team.find({ fullname: req.body.C2 }),
-        LF2: await Team.find({ fullname: req.body.LF2 }),
-        RH2: await Team.find({ fullname: req.body.RH2 }),
-        LH2: await Team.find({ fullname: req.body.LH2 }),
-        RF3: await Team.find({ fullname: req.body.RF3 }),
-        C3: await Team.find({ fullname: req.body.C3 }),
-        LF3: await Team.find({ fullname: req.body.LF3 }),
-        RH3: await Team.find({ fullname: req.body.RH3 }),
-        LH3: await Team.find({ fullname: req.body.LH3 }),
-        RF4: await Team.find({ fullname: req.body.RF4 }),
-        C4: await Team.find({ fullname: req.body.C4 }),
-        LF4: await Team.find({ fullname: req.body.LF4 }),
-        RH4: await Team.find({ fullname: req.body.RH4 }),
-        LH4: await Team.find({ fullname: req.body.LH4 }),
-        TW1: await Team.find({ fullname: req.body.TW1 }),
-        TW2: await Team.find({ fullname: req.body.TW2 }),
+        RF1: await Team.findOne({ fullname: req.body.RF1 }),
+        C1: await Team.findOne({ fullname: req.body.C1 }),
+        LF1: await Team.findOne({ fullname: req.body.LF1 }),
+        RH1: await Team.findOne({ fullname: req.body.RH1 }),
+        LH1: await Team.findOne({ fullname: req.body.LH1 }),
+        RF2: await Team.findOne({ fullname: req.body.RF2 }),
+        C2: await Team.findOne({ fullname: req.body.C2 }),
+        LF2: await Team.findOne({ fullname: req.body.LF2 }),
+        RH2: await Team.findOne({ fullname: req.body.RH2 }),
+        LH2: await Team.findOne({ fullname: req.body.LH2 }),
+        RF3: await Team.findOne({ fullname: req.body.RF3 }),
+        C3: await Team.findOne({ fullname: req.body.C3 }),
+        LF3: await Team.findOne({ fullname: req.body.LF3 }),
+        RH3: await Team.findOne({ fullname: req.body.RH3 }),
+        LH3: await Team.findOne({ fullname: req.body.LH3 }),
+        RF4: await Team.findOne({ fullname: req.body.RF4 }),
+        C4: await Team.findOne({ fullname: req.body.C4 }),
+        LF4: await Team.findOne({ fullname: req.body.LF4 }),
+        RH4: await Team.findOne({ fullname: req.body.RH4 }),
+        LH4: await Team.findOne({ fullname: req.body.LH4 }),
+        TW1: await Team.findOne({ fullname: req.body.TW1 }),
+        TW2: await Team.findOne({ fullname: req.body.TW2 }),
     })
     try {
 
@@ -261,16 +261,18 @@ router.get('/toggleLive/:id/:live', async (req, res) => {
 })
 
 router.get('/toggleCancled/:id/:abgesagt', async (req, res) => {
-    let abgesagt
-    req.params.abgesagt === 'true' ? abgesagt= false : abgesagt = true
+    let abgesagt1
+    req.params.abgesagt === 'true' ? abgesagt1 = false : abgesagt1 = true
 
     try {
         const id = req.params.id;
         const options = { new: true };
 
-        await Model.findByIdAndUpdate(
-            id, abgesagt, options
+        const result = await Model.findByIdAndUpdate(
+            id, {abgesagt: abgesagt1}, options
         )
+
+        res.send(result)
     }
     catch (error) {
         res.status(500).json({ message: error.message })

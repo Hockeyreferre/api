@@ -45,7 +45,7 @@
 			<% let live = data.live || false %>
 			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/toggleLive/<%= data.id %>/<%= live %>">Live / Live beenden</a></li>
 			<li class="auswahl-item"><a class="auswahl-link" href="#">Overtime / Penalty</a></li>
-			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/toggleCancled/<%= data.id %>/<%= data.abgesagt %>">Abgesagt</a></li>
+			<li class="auswahl-item"><a class="auswahl-link" href="/<%= liga %>/toggleCancled/<%= data.id %>/<%= data.abgesagt == true ? 'true' : 'false' %>">Abgesagt</a></li>
 		</ul>
 	</div>
 	<script src="/js/nav.js"></script>
