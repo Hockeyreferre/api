@@ -12,7 +12,7 @@ const table = { place: 1 }
 const liga = 'ostseeliga'
 
 router.get('', async (req, res) => {
-    res.render('startseite', { data: await Model.find({ liga: liga }).sort(sort), team: await Tabelle.find({ liga: liga }), liga: liga,  one: await Model.findOne({ liga: liga })});
+    res.render('startseite', { data: await Model.find({ liga: liga }).sort(sort), team: await Tabelle.find({ liga: liga }), liga: liga, one: await Model.findOne({ liga: liga }) });
 })
 
 router.get('/create', async (req, res) => {
@@ -20,14 +20,14 @@ router.get('/create', async (req, res) => {
 })
 
 router.get('/editTable', async (req, res) => {
-    res.render('table', { data: await Tabelle.find({ liga: liga }).sort(table), liga: liga });
+    res.render('table', { data: await Tabelle.find({ liga: liga }).sort(table), liga: liga, goals: await Goal.find({ verein: req.body.teamName, liga: liga }) });
 })
 
 router.get('/mannschaft/:name', async (req, res) => {
     res.render('mannschaft', { data: await Team.find({ teamName: req.params.name, liga: liga }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name, liga: liga }), liga: liga })
 })
 
-router.get('/game/:id/:home/:away/:date', async (req, res) => {
+router.get('/game/:id/:home/:away', async (req, res) => {
     res.render('detail', { 
         data: await Model.findById(req.params.id), 
         aufstellungHome: await Team.find({teamName: req.params.home}),
@@ -35,10 +35,11 @@ router.get('/game/:id/:home/:away/:date', async (req, res) => {
         nameHome: req.params.home, 
         nameAway: req.params.away, 
         id: req.params.id, 
-        date: req.params.date, 
         tableHome: await Tabelle.findOne({ name: req.params.home }), 
         tableAway: await Tabelle.findOne({ name: req.params.away }),
-        liga: liga 
+        liga: liga,
+        goalsHome: await Goal.find({ gameID: req.params.id, verein: req.params.home }), 
+        goalsAway: await Goal.find({ gameID: req.params.id, verein: req.params.away }),
     });
 })
 
@@ -54,6 +55,25 @@ router.get('/:period/:id/:home/:away', async (req, res) => {
     });
 })
 
+router.get('/aufstellung/:name/:id', async (req, res) => {
+    res.render('aufstellung', { 
+        data: await Model.findById(req.params.id),
+        players: await Team.find({ teamName: req.params.name, liga: liga }),
+        trainers: await Trainer.find({ teamName: req.params.name, liga: liga }), 
+        liga: liga,
+        team: req.params.name,
+        id: req.params.id
+    });
+})
+
+router.get('/offizielle/:id', async (req, res) => {
+    res.render('aufstellungOffizielle', { 
+        data: await Model.findById(req.params.id),
+        liga: liga,
+        id: req.params.id
+    });
+})
+
 router.post('/add', async (req, res) => {
     const data = new Model({
         home: await Tabelle.findOne({ name: req.body.home }),
@@ -61,14 +81,11 @@ router.post('/add', async (req, res) => {
         date: req.body.date,
         time: req.body.time,
         stadion: req.body.stadion,
-        live: req.body.live,
         referre1: req.body.referre1,
         referre2: req.body.referre2,
         linesperson1: req.body.linesperson1,
         linesperson2: req.body.linesperson2,
         liga: req.body.liga,
-        beendet: req.body.beendet,
-        abgesagt: req.body.abgesagt
     })
 
     try {
@@ -119,31 +136,32 @@ router.post('/addPenalty/:id/:name/:period', async (req, res) => {
 })
 
 
-router.post('/aufstellung/:name/:date', async (req, res) => {
+router.post('/aufstellung/:name/:id', async (req, res) => {
     const aufstellung = new Aufstellung({
-        teamName: req.params.name + " " + req.params.date,
-        RF1: await Team.find({ fullname: req.body.RF1 }),
-        C1: await Team.find({ fullname: req.body.C1 }),
-        LF1: await Team.find({ fullname: req.body.LF1 }),
-        RH1: await Team.find({ fullname: req.body.RH1 }),
-        LH1: await Team.find({ fullname: req.body.LH1 }),
-        RF2: await Team.find({ fullname: req.body.RF2 }),
-        C2: await Team.find({ fullname: req.body.C2 }),
-        LF2: await Team.find({ fullname: req.body.LF2 }),
-        RH2: await Team.find({ fullname: req.body.RH2 }),
-        LH2: await Team.find({ fullname: req.body.LH2 }),
-        RF3: await Team.find({ fullname: req.body.RF3 }),
-        C3: await Team.find({ fullname: req.body.C3 }),
-        LF3: await Team.find({ fullname: req.body.LF3 }),
-        RH3: await Team.find({ fullname: req.body.RH3 }),
-        LH3: await Team.find({ fullname: req.body.LH3 }),
-        RF4: await Team.find({ fullname: req.body.RF4 }),
-        C4: await Team.find({ fullname: req.body.C4 }),
-        LF4: await Team.find({ fullname: req.body.LF4 }),
-        RH4: await Team.find({ fullname: req.body.RH4 }),
-        LH4: await Team.find({ fullname: req.body.LH4 }),
-        TW1: await Team.find({ fullname: req.body.TW1 }),
-        TW2: await Team.find({ fullname: req.body.TW2 }),
+        teamName: req.params.name + " " + req.params.id,
+        RF1: await Team.findOne({ fullname: req.body.RF1 }),
+        C1: await Team.findOne({ fullname: req.body.C1 }),
+        LF1: await Team.findOne({ fullname: req.body.LF1 }),
+        RH1: await Team.findOne({ fullname: req.body.RH1 }),
+        LH1: await Team.findOne({ fullname: req.body.LH1 }),
+        RF2: await Team.findOne({ fullname: req.body.RF2 }),
+        C2: await Team.findOne({ fullname: req.body.C2 }),
+        LF2: await Team.findOne({ fullname: req.body.LF2 }),
+        RH2: await Team.findOne({ fullname: req.body.RH2 }),
+        LH2: await Team.findOne({ fullname: req.body.LH2 }),
+        RF3: await Team.findOne({ fullname: req.body.RF3 }),
+        C3: await Team.findOne({ fullname: req.body.C3 }),
+        LF3: await Team.findOne({ fullname: req.body.LF3 }),
+        RH3: await Team.findOne({ fullname: req.body.RH3 }),
+        LH3: await Team.findOne({ fullname: req.body.LH3 }),
+        RF4: await Team.findOne({ fullname: req.body.RF4 }),
+        C4: await Team.findOne({ fullname: req.body.C4 }),
+        LF4: await Team.findOne({ fullname: req.body.LF4 }),
+        RH4: await Team.findOne({ fullname: req.body.RH4 }),
+        LH4: await Team.findOne({ fullname: req.body.LH4 }),
+        TW1: await Team.findOne({ fullname: req.body.TW1 }),
+        TW2: await Team.findOne({ fullname: req.body.TW2 }),
+        Trainer: req.body.trainer
     })
     try {
 
@@ -182,7 +200,7 @@ router.post('/addTrainer/:name', async (req, res) => {
 
     try {
         await trainer.save();
-        res.send('Trainer erfolgreich erstellt!   -->   Bitte gehe eine Seite zurück und lade diese neu :)')
+        res.send('Trainer erfolgreich erstellt! --> Bitte gehe eine Seite zurück und lade diese neu :)')
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -190,7 +208,7 @@ router.post('/addTrainer/:name', async (req, res) => {
 })
 
 //Update by ID Method
-router.post('/update/:id/:home/:away', async (req, res) => {
+router.post('/update/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -198,20 +216,6 @@ router.post('/update/:id/:home/:away', async (req, res) => {
 
         const result = await Model.findByIdAndUpdate(
             id, updatedData, options
-        )
-
-        if(req.body.live = true) {
-            await Tabelle.findOneAndUpdate(
-                {name: req.params.home}, {games: req.body.gamesHome}, options
-            )
-
-            await Tabelle.findOneAndUpdate(
-                {name: req.params.away}, {games: req.body.gamesAway}, options
-            )
-        }
-
-        await Tabelle.findOneAndUpdate(
-            {name: req.params.home}, {goals: req.body.scoreHome  }, options
         )
 
         res.send(result)
@@ -240,7 +244,7 @@ router.post('/updatePlayer/:id', async (req, res) => {
 
 router.get('/toggleLive/:id/:live', async (req, res) => {
     let live1
-    req.params.live === 'true' ? live1 = true : live1 = true
+    req.params.live === 'true' ? live1 = false : live1 = true
 
     try {
         const id = req.params.id;
@@ -258,16 +262,18 @@ router.get('/toggleLive/:id/:live', async (req, res) => {
 })
 
 router.get('/toggleCancled/:id/:abgesagt', async (req, res) => {
-    let abgesagt
-    req.params.abgesagt === 'true' ? abgesagt= false : abgesagt = true
+    let abgesagt1
+    req.params.abgesagt === 'true' ? abgesagt1 = false : abgesagt1 = true
 
     try {
         const id = req.params.id;
         const options = { new: true };
 
-        await Model.findByIdAndUpdate(
-            id, abgesagt, options
+        const result = await Model.findByIdAndUpdate(
+            id, {abgesagt: abgesagt1}, options
         )
+
+        res.send(result)
     }
     catch (error) {
         res.status(500).json({ message: error.message })

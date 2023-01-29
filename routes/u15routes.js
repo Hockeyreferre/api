@@ -27,7 +27,7 @@ router.get('/mannschaft/:name', async (req, res) => {
     res.render('mannschaft', { data: await Team.find({ teamName: req.params.name, liga: liga }), name: req.params.name, trainer: await Trainer.find({ teamName: req.params.name, liga: liga }), liga: liga })
 })
 
-router.get('/game/:id/:home/:away/:date', async (req, res) => {
+router.get('/game/:id/:home/:away', async (req, res) => {
     res.render('detail', { 
         data: await Model.findById(req.params.id), 
         aufstellungHome: await Team.find({teamName: req.params.home}),
@@ -35,7 +35,6 @@ router.get('/game/:id/:home/:away/:date', async (req, res) => {
         nameHome: req.params.home, 
         nameAway: req.params.away, 
         id: req.params.id, 
-        date: req.params.date, 
         tableHome: await Tabelle.findOne({ name: req.params.home }), 
         tableAway: await Tabelle.findOne({ name: req.params.away }),
         liga: liga,
