@@ -90,14 +90,14 @@ router.post('/add', async (req, res) => {
 
     try {
         const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
+        res.redirect(`/${liga}`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
     }
 })
 
-router.post('/addGoal/:id/:name/:period', async (req, res) => {
+router.post('/addGoal/:id/:name/:period/:home/:away', async (req, res) => {
     const data = new Goal({
         gameID: req.params.id,
         time: req.body.time,
@@ -110,13 +110,14 @@ router.post('/addGoal/:id/:name/:period', async (req, res) => {
 
     try {
         await data.save();
+        res.redirect(`/${liga}/${req.params.period}/${req.params.id}/${req.params.home}/${req.params.away}`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
     }
 })
 
-router.post('/addPenalty/:id/:name/:period', async (req, res) => {
+router.post('/addPenalty/:id/:name/:period/:home/:away', async (req, res) => {
     const data = new Penalty({
         gameID: req.params.id,
         time: req.body.time,
@@ -129,6 +130,7 @@ router.post('/addPenalty/:id/:name/:period', async (req, res) => {
 
     try {
         await data.save();
+        res.redirect(`/${liga}/period/${req.params.id}/${req.params.home}/${req.params.away}`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
@@ -166,7 +168,7 @@ router.post('/aufstellung/:name/:id', async (req, res) => {
     try {
 
         const dataToSave = await aufstellung.save();
-        res.status(200).json(dataToSave)
+        res.redirect(`/${liga}/aufstellung/${req.params.name}/${req.params.id}`)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -184,6 +186,7 @@ router.post('/addPlayer/:name', async (req, res) => {
 
     try {
         const dataToSave = await player.save();
+        res.redirect(`/${liga}/mannschaft/${req.params.name}`)
         res.status(200).json(dataToSave)
     }
     catch (error) {
@@ -200,7 +203,7 @@ router.post('/addTrainer/:name', async (req, res) => {
 
     try {
         await trainer.save();
-        res.send('Trainer erfolgreich erstellt! --> Bitte gehe eine Seite zurück und lade diese neu :)')
+        res.redirect(`/${liga}/mannschaft/${req.params.name}`)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -235,14 +238,14 @@ router.post('/updatePlayer/:id', async (req, res) => {
             id, updatedData, options
         )
 
-        res.send(result)
+        res.redirect(`/${liga}/game/${req.params.id}/${req.params.home}/${req.params.away}`)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
     }
 })
 
-router.get('/toggleLive/:id/:live', async (req, res) => {
+router.get('/toggleLive/:id/:home/:away/:live', async (req, res) => {
     let live1
     req.params.live === 'true' ? live1 = false : live1 = true
 
@@ -250,11 +253,34 @@ router.get('/toggleLive/:id/:live', async (req, res) => {
         const id = req.params.id;
         const options = { new: true };
 
-        const result = await Model.findByIdAndUpdate(
+        await Model.findByIdAndUpdate(
             id, {live: live1}, options
         )
 
-        res.send(result)
+        if(live1 == false) {
+            // home Update
+            const goalsGameHome = await Goal.find({ verein: req.params.home, liga: liga }).length;
+            const ggoalsHome = await Goal.find({ gameID: req.params.id , verein: req.params.away, liga: liga });
+            const ggoalsHome1 = await Tabelle.findOne({ name: req.params.home, liga: liga });
+            await Tabelle.findOneAndUpdate({name: req.params.home}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length, games: ggoalsHome1.get('games') + 1}, options);
+
+            // away Update
+            const goalsGameAway = await Goal.find({ verein: req.params.away });
+            const ggoalsAway = await Goal.find({ gameID: req.params.id , verein: req.params.home, liga: liga });
+            const ggoalsAway1 = await Tabelle.findOne({ name: req.params.away, liga: liga });
+            await Tabelle.findOneAndUpdate({name: req.params.away}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length, games: ggoalsAway1.get('games') + 1}, options);
+
+            // setup Update
+            if(ggoalsHome < ggoalsAway) {
+                await Tabelle.findOneAndUpdate({name: req.params.home}, {points: ggoalsHome1.get('points') + 3, win: ggoalsHome1.get('win') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.away}, {loose: ggoalsAway1.get('loose') + 1}, options);
+            } else {
+                await Tabelle.findOneAndUpdate({name: req.params.away}, {points: ggoalsAway1.get('points') + 3, win: ggoalsAway1.get('win') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.home}, {loose: ggoalsHome1.get('loose') + 1}, options);
+            }
+        }
+
+        res.redirect(`/${liga}/game/${req.params.id}/${req.params.home}/${req.params.away}`)
     }
     catch (error) {
         res.status(500).json({ message: error.message })

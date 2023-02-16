@@ -56,10 +56,6 @@ const dataSchema = new mongoose.Schema({
     liga: {
         required: true,
         type: String
-    },
-    overtime: {
-        required: false,
-        type: Boolean
     }
 })
 
