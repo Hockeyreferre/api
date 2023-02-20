@@ -262,21 +262,21 @@ router.get('/toggleLive/:id/:home/:away/:live', async (req, res) => {
             const goalsGameHome = await Goal.find({ verein: req.params.home, liga: liga }).length;
             const ggoalsHome = await Goal.find({ gameID: req.params.id , verein: req.params.away, liga: liga });
             const ggoalsHome1 = await Tabelle.findOne({ name: req.params.home, liga: liga });
-            await Tabelle.findOneAndUpdate({name: req.params.home}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length }, options);
+            await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length }, options);
 
             // away Update
-            const goalsGameAway = await Goal.find({ verein: req.params.away });
+            const goalsGameAway = await Goal.find({ verein: req.params.away, liga: liga });
             const ggoalsAway = await Goal.find({ gameID: req.params.id , verein: req.params.home, liga: liga });
             const ggoalsAway1 = await Tabelle.findOne({ name: req.params.away, liga: liga });
-            await Tabelle.findOneAndUpdate({name: req.params.away}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length}, options);
+            await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length}, options);
 
             // setup Update
             if(ggoalsHome < ggoalsAway) {
-                await Tabelle.findOneAndUpdate({name: req.params.home}, {points: ggoalsHome1.get('points') + 3, win: ggoalsHome1.get('win') + 1}, options);
-                await Tabelle.findOneAndUpdate({name: req.params.away}, {loose: ggoalsAway1.get('loose') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {points: ggoalsHome1.get('points') + 3, win: ggoalsHome1.get('win') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {loose: ggoalsAway1.get('loose') + 1}, options);
             } else {
-                await Tabelle.findOneAndUpdate({name: req.params.away}, {points: ggoalsAway1.get('points') + 3, win: ggoalsAway1.get('win') + 1}, options);
-                await Tabelle.findOneAndUpdate({name: req.params.home}, {loose: ggoalsHome1.get('loose') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {points: ggoalsAway1.get('points') + 3, win: ggoalsAway1.get('win') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {loose: ggoalsHome1.get('loose') + 1}, options);
             }
         }
 
