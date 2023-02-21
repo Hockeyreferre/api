@@ -263,11 +263,15 @@ router.get('/toggleLive/:id/:home/:away/:live', async (req, res) => {
             const ggoalsHome1 = await Tabelle.findOne({ name: req.params.home, liga: liga });
             await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length, games: ggoalsHome1.get('games') + 1}, options);
 
+            await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length }, options);
+
             // away Update
-            const goalsGameAway = await Goal.find({ verein: req.params.away });
+            const goalsGameAway = await Goal.find({ verein: req.params.away, liga: liga });
             const ggoalsAway = await Goal.find({ gameID: req.params.id , verein: req.params.home, liga: liga });
             const ggoalsAway1 = await Tabelle.findOne({ name: req.params.away, liga: liga });
             await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length, games: ggoalsAway1.get('games') + 1}, options);
+
+            await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length}, options);
 
             // setup Update
             if(ggoalsHome < ggoalsAway) {
