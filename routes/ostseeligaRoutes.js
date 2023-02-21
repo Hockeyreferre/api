@@ -185,9 +185,8 @@ router.post('/addPlayer/:name', async (req, res) => {
     });
 
     try {
-        const dataToSave = await player.save();
+        await player.save();
         res.redirect(`/${liga}/mannschaft/${req.params.name}`)
-        res.status(200).json(dataToSave)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -228,7 +227,7 @@ router.post('/update/:id', async (req, res) => {
     }
 })
 
-router.post('/updatePlayer/:id', async (req, res) => {
+router.post('/updatePlayer/:id/:name', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -238,7 +237,7 @@ router.post('/updatePlayer/:id', async (req, res) => {
             id, updatedData, options
         )
 
-        res.redirect(`/${liga}/game/${req.params.id}/${req.params.home}/${req.params.away}`)
+        res.redirect(`/${liga}/mannschaft/${req.params.name}`)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -262,21 +261,21 @@ router.get('/toggleLive/:id/:home/:away/:live', async (req, res) => {
             const goalsGameHome = await Goal.find({ verein: req.params.home, liga: liga }).length;
             const ggoalsHome = await Goal.find({ gameID: req.params.id , verein: req.params.away, liga: liga });
             const ggoalsHome1 = await Tabelle.findOne({ name: req.params.home, liga: liga });
-            await Tabelle.findOneAndUpdate({name: req.params.home}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length }, options);
+            await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {goals: goalsGameHome, ggoals: ggoalsHome1.get('ggoals') + ggoalsHome.length, games: ggoalsHome1.get('games') + 1}, options);
 
             // away Update
             const goalsGameAway = await Goal.find({ verein: req.params.away });
             const ggoalsAway = await Goal.find({ gameID: req.params.id , verein: req.params.home, liga: liga });
             const ggoalsAway1 = await Tabelle.findOne({ name: req.params.away, liga: liga });
-            await Tabelle.findOneAndUpdate({name: req.params.away}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length}, options);
+            await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {goals: goalsGameAway.length, ggoals: ggoalsAway1.get('ggoals') + ggoalsAway.length, games: ggoalsAway1.get('games') + 1}, options);
 
             // setup Update
             if(ggoalsHome < ggoalsAway) {
-                await Tabelle.findOneAndUpdate({name: req.params.home}, {points: ggoalsHome1.get('points') + 3, win: ggoalsHome1.get('win') + 1}, options);
-                await Tabelle.findOneAndUpdate({name: req.params.away}, {loose: ggoalsAway1.get('loose') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {points: ggoalsHome1.get('points') + 3, win: ggoalsHome1.get('win') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {loose: ggoalsAway1.get('loose') + 1}, options);
             } else {
-                await Tabelle.findOneAndUpdate({name: req.params.away}, {points: ggoalsAway1.get('points') + 3, win: ggoalsAway1.get('win') + 1}, options);
-                await Tabelle.findOneAndUpdate({name: req.params.home}, {loose: ggoalsHome1.get('loose') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.away, liga: liga}, {points: ggoalsAway1.get('points') + 3, win: ggoalsAway1.get('win') + 1}, options);
+                await Tabelle.findOneAndUpdate({name: req.params.home, liga: liga}, {loose: ggoalsHome1.get('loose') + 1}, options);
             }
         }
 
@@ -287,7 +286,7 @@ router.get('/toggleLive/:id/:home/:away/:live', async (req, res) => {
     }
 })
 
-router.get('/toggleCancled/:id/:abgesagt', async (req, res) => {
+router.get('/toggleCancled/:id/:home/:away/:abgesagt', async (req, res) => {
     let abgesagt1
     req.params.abgesagt === 'true' ? abgesagt1 = false : abgesagt1 = true
 
@@ -299,7 +298,7 @@ router.get('/toggleCancled/:id/:abgesagt', async (req, res) => {
             id, {abgesagt: abgesagt1}, options
         )
 
-        res.send(result)
+        res.redirect(`/${liga}/game/${req.params.id}/${req.params.home}/${req.params.away}`)
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -332,20 +331,20 @@ router.post('/delete/:id', async (req, res) => {
     }
 })
 
-router.post('/deleteTrainer/:name', async (req, res) => {
+router.post('/deleteTrainer/:name/:team', async (req, res) => {
     try {
         const data = await Trainer.findOneAndDelete({ fullname: req.params.name})
-        res.send('Trainer gelöscht. --> eine Seite zurückgehen und die Seite neu laden :)')
+        res.redirect(`/${liga}/mannschaft/${req.params.team}`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
     }
 })
 
-router.post('/deletePlayer/:name', async (req, res) => {
+router.post('/deletePlayer/:name/:team', async (req, res) => {
     try {
         const data = await Team.findOneAndDelete({ fullname: req.params.name})
-        res.send('Spieler gelöscht. --> eine Seite zurückgehen und die Seite neu laden :)')
+        res.redirect(`/${liga}/mannschaft/${req.params.team}`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })

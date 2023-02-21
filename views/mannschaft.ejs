@@ -85,7 +85,7 @@
 		<% trainer.forEach(element => { %>
 			<tr>
         <td><%= element.fullname %></td>
-        <form action="/<%= liga %>/deleteTrainer/<%= element.fullname %>" method="post">
+        <form action="/<%= liga %>/deleteTrainer/<%= element.fullname %>/<%= name %>" method="post">
           <td><button type="submit">Löschen</button></td>
         </form>
 			</tr>
@@ -99,12 +99,12 @@
 		</tr>
 		<% data.forEach(element => { %>
 			<tr>
-        <form action="/<%= liga %>/updatePlayer/<%= element.id %>" method="post">
+        <form action="/<%= liga %>/updatePlayer/<%= element.id %>/<%= name %>" method="post">
             <td><input type="number" name="jersey" id="jersey" value="<%= element.jersey %>"></td>
             <td><%= element.fullname %></td>
             <td><button type="submit">Update</button></td>
         </form>
-        <form action="/<%= liga %>/deletePlayer/<%= element.fullname %>" method="post">
+        <form action="/<%= liga %>/deletePlayer/<%= element.fullname %>/<%= name %>" method="post">
           <td><button type="submit">Löschen</button></td>
         </form>
 			</tr>
