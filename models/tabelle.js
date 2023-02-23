@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const table = new mongoose.Schema({
-    place: {
-        required: true,
-        type: Number
-    },
     logo: {
         required: true,
         type: String
