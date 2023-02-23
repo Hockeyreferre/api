@@ -35,21 +35,17 @@
       <table>
         <tr>
           <th>Name</th>
-					<th>Platz</th>
 					<th>Spiele</th>
 					<th>Tore</th>
-					<th>Gegentore</th>
-					<th>Punkte</th>
+          <th>Gegentore</th>
 				</tr>
           <% data.forEach(element => { %>
             <tr>
             <form action="/<%= liga %>/updateTeam/<%= element.name %>" method="post">
                 <td><span name="teamNname" id="teamName"><%= element.name %></span></td>
-                <td><input type="number" name="place" id="place" value="<%= element.place %>"></td>
                 <td><input type="number" name="games" id="games" value="<%= element.games %>"></td>
-                <td><input type="number" name="goals" id="goals" value="<%= goals.length %>"></td>
+                <td><input type="number" name="goals" id="goals" value="<%= element.goals %>"></td>
                 <td><input type="number" name="ggoals" id="ggoals" value="<%= element.ggoals %>"></td>
-                <td><input type="number" name="points" id="points" value="<%= element.points %>"></td>
                 <td><button type="submit">Update</button></td>
             </form>
           </tr>
