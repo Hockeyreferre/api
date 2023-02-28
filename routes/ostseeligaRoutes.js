@@ -134,7 +134,7 @@ router.post('/addPenalty/:id/:name/:period/:home/:away', async (req, res) => {
 
     try {
         await data.save();
-        res.redirect(`/${liga}/period/${req.params.id}/${req.params.home}/${req.params.away}`)
+        res.redirect(`/${liga}/${req.params.period}/${req.params.id}/${req.params.home}/${req.params.away}`)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
